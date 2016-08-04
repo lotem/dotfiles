@@ -1,0 +1,4 @@
+[registry]
+index = "git://crates.mirrors.ustc.edu.cn/index"
+
+# index = "http://crates.mirrors.ustc.edu.cn/index"

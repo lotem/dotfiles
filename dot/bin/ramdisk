@@ -1,0 +1,30 @@
+#!/bin/sh
+
+function mount_ramdisk {
+  NUM_SECTORS=512000
+  ramdisk_device=`hdid -nomount ram://$NUM_SECTORS`
+  newfs_hfs $ramdisk_device
+  echo $ramdisk_device > /tmp/ramdisk.device
+  mkdir -p /tmp/ramdisk
+  mount -t hfs $ramdisk_device /tmp/ramdisk
+}
+
+function unmount_ramdisk {
+  umount /tmp/ramdisk
+  if [ -e /tmp/ramdisk.device ]; then
+    diskutil eject `cat /tmp/ramdisk.device`
+    rm /tmp/ramdisk.device
+  fi
+}
+
+cmd=$1
+shift
+
+if [[ "$cmd" == 'mount' ]]; then
+  mount_ramdisk
+elif [[ "$cmd" == 'umount' || "$cmd" == 'unmount' ]]; then
+  unmount_ramdisk
+else
+  echo "unknown command: '$cmd'"
+  exit 1
+fi

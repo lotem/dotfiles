@@ -1,0 +1,58 @@
+" encoding: utf-8
+
+" File encoding {
+    set fileencodings=ucs-bom,utf-8,gbk,big5,euc-jp,euc-kr,utf-16le,latin1
+" }
+
+" Formatting {
+    autocmd FileType coffee,javascript,json,ruby,xml,yml setlocal expandtab shiftwidth=2 softtabstop=2
+" }
+
+" UI preferences {
+    "color github
+    color peaksea
+
+    if WINDOWS()
+        language messages zh_CN.utf-8
+        set guioptions-=m
+    endif
+
+    if LINUX() && has("gui_running")
+        set guifont=Andale\ Mono\ Regular\ 16,Menlo\ Regular\ 15,Consolas\ Regular\ 16,Courier\ New\ Regular\ 18
+    elseif OSX() && has("gui_running")
+        set guifont=Monaco:h16,Andale\ Mono\ Regular:h16,Menlo\ Regular:h15,Consolas\ Regular:h16,Courier\ New\ Regular:h18
+    elseif WINDOWS() && has("gui_running")
+        set guifont=Monaco:h14,Andale_Mono:h14,Menlo:h14,Consolas:h14,Courier_New:h14
+    endif
+" }
+
+" localvimrc {
+    let g:localvimrc_ask = 0
+" }
+
+" calendar {
+    let g:calendar_diary = '~/Documents/diary'
+    let g:calendar_focus_today = 1
+    "let g:calendar_erafmt = '民國,-1911'
+    let g:calendar_mruler = '一月,二月,三月,四月,五月,六月,七月,八月,九月,十月,十一月,十二月'
+    let g:calendar_wruler = '日 月 火 水 木 金 土'
+" }
+
+" numpad {
+    inoremap <Esc>Oq 1
+    inoremap <Esc>Or 2
+    inoremap <Esc>Os 3
+    inoremap <Esc>Ot 4
+    inoremap <Esc>Ou 5
+    inoremap <Esc>Ov 6
+    inoremap <Esc>Ow 7
+    inoremap <Esc>Ox 8
+    inoremap <Esc>Oy 9
+    inoremap <Esc>Op 0
+    inoremap <Esc>On .
+    inoremap <Esc>OQ /
+    inoremap <Esc>OR *
+    inoremap <Esc>Ol +
+    inoremap <Esc>OS -
+    inoremap <Esc>OM <Enter>
+" }

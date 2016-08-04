@@ -1,0 +1,8 @@
+#!/bin/bash
+# vim: set syntax=sh sw=2 sts=2 et:
+
+echo "configuration: $configuration"
+
+if [[ "$configuration" == "" ]]; then
+  export fsync_flags="$fsync_flags $fsync_unix $fsync_dirlink"
+fi

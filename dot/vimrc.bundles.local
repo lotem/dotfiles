@@ -1,0 +1,4 @@
+Bundle 'lotem/google-style.vim'
+Bundle 'mattn/calendar-vim'
+Bundle 'vim-scripts/a.vim'
+Bundle 'vim-scripts/localvimrc'

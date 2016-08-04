@@ -1,0 +1,98 @@
+#!/bin/bash
+
+# Variables {
+
+# OMZ Powerline
+DEFAULT_USER=$USERNAME
+
+# }
+
+# Locale {
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+# }
+
+# Path {
+
+# CMake search path
+if [ -d "$HOME/.homebrew" ]; then
+  export CMAKE_PREFIX_PATH=$HOME:$HOME/.homebrew
+fi
+
+# Rust
+export RUST_SRC_HOME=$HOME/src/rust
+export RUST_SRC_PATH=$RUST_SRC_HOME/src
+export PATH=$PATH:$HOME/.cargo/bin
+
+# rustup USTC mirror
+export RUSTUP_DIST_SERVER=https://mirrors.ustc.edu.cn/rust-static
+export RUSTUP_UPDATE_ROOT=https://mirrors.ustc.edu.cn/rust-static/rustup/dist
+
+# Golang
+export GOPATH=$HOME/go
+export PATH=$PATH:$GOPATH/bin
+
+# nvm
+if [ -f ~/.nvm/nvm.sh ]; then
+  source ~/.nvm/nvm.sh
+  nvm use node >/dev/null
+fi
+
+# CrossPack-AVR
+if [ -d /usr/local/CrossPack-AVR ]; then
+  export PATH=$PATH:/usr/local/CrossPack-AVR/bin
+fi
+
+# Rime
+if [[ "$OSTYPE" =~ 'linux-gnu' ]]; then
+  export RIME="$HOME/.config/ibus/rime"
+elif [[ "$OSTYPE" =~ 'darwin' ]]; then
+  export RIME="$HOME/Library/Rime"
+fi
+
+# }
+
+# Aliases {
+
+if command -v hub >/dev/null; then
+  # Wrap git automatically by adding the following to ~/.zshrc:
+  eval "$(hub alias -s)"
+fi
+
+# }
+
+# Key bindings {
+
+if [ -n "$ZSH_VERSION" ]; then
+  # Mac USB keypad
+  # 0 . Enter
+  bindkey -s "^[Op" "0"
+  bindkey -s "^[On" "."
+  bindkey -s "^[OM" "^M"
+  # 1 2 3
+  bindkey -s "^[Oq" "1"
+  bindkey -s "^[Or" "2"
+  bindkey -s "^[Os" "3"
+  # 4 5 6
+  bindkey -s "^[Ot" "4"
+  bindkey -s "^[Ou" "5"
+  bindkey -s "^[Ov" "6"
+  # 7 8 9
+  bindkey -s "^[Ow" "7"
+  bindkey -s "^[Ox" "8"
+  bindkey -s "^[Oy" "9"
+  # + -  * / =
+  bindkey -s "^[Ok" "+"
+  bindkey -s "^[Om" "-"
+  bindkey -s "^[Oj" "*"
+  bindkey -s "^[Oo" "/"
+  bindkey -s "^[OX" "="
+fi
+
+# }
+
+if [[ `hostname` =~ ${USERNAME}.*\\.corp\\.google\\.com ]]; then
+  source $HOME/.exports-google
+fi
+
+# vim: set syntax=sh et sw=2 sts=2:

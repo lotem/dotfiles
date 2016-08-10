@@ -238,7 +238,9 @@ install_emacs() {
   brew_install emacs --with-cocoa
   brew link emacs
   brew linkapps emacs
+}
 
+setup_emacs() {
   if [ ! -d "$HOME/.emacs.d" ]; then
     git_clone_or_pull 'https://github.com/purcell/emacs.d.git' "$HOME/.emacs.d" --depth 1
   fi
@@ -331,6 +333,8 @@ customize() {
 
 excludes=()
 
+commands=()
+
 map() {
   local command=$1
   shift
@@ -372,9 +376,23 @@ process_args() {
         fancy_echo 'Skipping %s %s ...' $function_name \"\$*\"
       }"
     elif [[ "$arg" =~ exclude=.* ]]; then
-      excludes=(${excludes[@]} "${arg#exclude=}")
+      excludes+=("${arg#exclude=}")
+    elif [[ "$arg" =~ run=.* ]]; then
+      commands+=("${arg#run=}")
     fi
   done
+}
+
+run_commands() {
+  if [ "$#" -eq 0 ]; then
+    main
+  else
+    local cmd
+    for cmd in $@; do
+      fancy_echo 'Running: %s' "${cmd}"
+      eval "${cmd}"
+    done
+  fi
 }
 
 main() {
@@ -402,6 +420,7 @@ main() {
   fi
 
   install_emacs
+  setup_emacs
   setup_dotfiles
   setup_vim
 
@@ -423,7 +442,7 @@ if [ -f "$(dirname $0)/bootstrap.conf" ]; then
   . "$(dirname $0)/bootstrap.conf"
 fi
 
-main
+run_commands ${commands[@]}
 
 fancy_echo 'all done.'
 

@@ -403,9 +403,7 @@ main() {
   install_homebrew
   brew_update
 
-  if ! command -v brew-cask >/dev/null; then
-    brew_tap_install 'caskroom/cask/brew-cask'
-  fi
+  brew_tap caskroom/cask
 
   map brew_install ${brew_formulas[@]}
   map brew_tap_install ${brew_tap_formulas[@]}

@@ -1,4 +1,10 @@
 [registry]
 index = "git://crates.mirrors.ustc.edu.cn/index"
-
 # index = "http://crates.mirrors.ustc.edu.cn/index"
+
+[source.crates-io]
+registry = "https://github.com/rust-lang/crates.io-index"
+replace-with = 'ustc'
+[source.ustc]
+registry = "git://crates.mirrors.ustc.edu.cn/index"
+

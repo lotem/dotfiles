@@ -324,6 +324,7 @@ install_rust() {
     curl https://sh.rustup.rs -sSf | sh -s -- -y
     cargo install racer
   fi
+  rcup -v -d dot cargo
 }
 
 # TODO: override this function in bootstrap.conf

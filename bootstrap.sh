@@ -252,6 +252,16 @@ setup_vim() {
   fi
 }
 
+install_nano() {
+  git_clone_or_pull 'https://github.com/scopatz/nanorc.git' "$HOME/.nano" --depth 1
+  if [ ! -f "$HOME/.nanorc" ]; then
+    cat "$HOME/.nano/nanorc" > "$HOME/.nanorc"
+  fi
+  if [ "$(command -v nano)" != "$(brew --prefix)/bin/nano" ]; then
+    brew_tap_install 'homebrew/dupes/nano'
+  fi
+}
+
 install_omz_theme() {
   local repo=$1
   local name=${repo##*/}
@@ -422,6 +432,7 @@ main() {
   setup_emacs
   setup_dotfiles
   setup_vim
+  install_nano
 
   install_nodejs
   map npm_install_global ${global_node_modules[@]}

@@ -414,7 +414,8 @@ main() {
   install_homebrew
   brew_update
 
-  brew_tap caskroom/cask
+  # `brew cask` is now officially supported.
+  #brew_tap caskroom/cask
 
   map brew_install ${brew_formulas[@]}
   map brew_tap_install ${brew_tap_formulas[@]}

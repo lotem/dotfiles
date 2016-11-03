@@ -254,7 +254,8 @@ setup_vim() {
 }
 
 install_nano() {
-  git_clone_or_pull 'https://github.com/scopatz/nanorc.git' "$HOME/.nano" --depth 1
+  git_clone_or_pull 'https://github.com/lotem/nanorc.git' "$HOME/.nano" 
+--depth 1
   if [ ! -f "$HOME/.nanorc" ]; then
     cat "$HOME/.nano/nanorc" > "$HOME/.nanorc"
   fi

@@ -234,6 +234,12 @@ setup_dotfiles() {
   fi
 }
 
+install_emacs() {
+  brew_install emacs --with-cocoa
+  brew link emacs
+  brew linkapps emacs
+}
+
 setup_emacs() {
   if [ ! -d "$HOME/.emacs.d" ]; then
     git_clone_or_pull 'https://github.com/purcell/emacs.d.git' "$HOME/.emacs.d" --depth 1
@@ -423,6 +429,7 @@ main() {
     true
   fi
 
+  install_emacs
   setup_emacs
   setup_dotfiles
   setup_vim

@@ -238,6 +238,7 @@ install_emacs() {
   brew_install emacs --with-cocoa
   brew link emacs
   brew linkapps emacs
+  brew services start emacs
 }
 
 setup_emacs() {

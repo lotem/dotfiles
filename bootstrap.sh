@@ -226,8 +226,10 @@ setup_dotfiles() {
     brew_tap_install 'thoughtbot/formulae/rcm'
   fi
 
-  gpg --decrypt "$(dirname "$0")/private.gpg" | tar x
+  pushd "$(dirname $0)"
+  gpg --decrypt private.gpg | tar x
   rcup -v -d dot -d private
+  popd
 
   if [ -f "$HOME/.exports" ]; then
     append_to_zshrc 'source "$HOME/.exports"'

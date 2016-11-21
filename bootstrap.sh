@@ -71,7 +71,7 @@ brew_install() {
     fi
   else
     fancy_echo "Installing %s ..." "$1"
-    brew install "$@"
+    brew install $brew_install_options "$@"
   fi
 }
 
@@ -390,10 +390,16 @@ process_args() {
       eval "$function_name () {
         fancy_echo 'Skipping %s %s ...' $function_name \"\$*\"
       }"
+
     elif [[ "$arg" =~ exclude=.* ]]; then
       excludes+=("${arg#exclude=}")
+
     elif [[ "$arg" =~ run=.* ]]; then
       commands+=("${arg#run=}")
+
+    elif [[ "$arg" == '--liveusb' ]]; then
+      # disable optimization for the target CPU to work for older machines
+      brew_install_options+=' --build-bottle --force-bottle'
     fi
   done
 }

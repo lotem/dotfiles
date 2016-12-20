@@ -9,8 +9,8 @@
 " }
 
 " UI preferences {
-    "color github
-    color peaksea
+    color github
+    "color peaksea
 
     if WINDOWS()
         language messages zh_CN.utf-8

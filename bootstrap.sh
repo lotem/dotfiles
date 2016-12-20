@@ -303,7 +303,7 @@ use_zprezto_modules() {
   fi
 }
 
-install_nodejs() {
+install_nvm() {
   # nvm
   if [ ! -f ~/.nvm/nvm.sh ]; then
     curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.29.0/install.sh | bash
@@ -315,6 +315,12 @@ install_nodejs() {
     nvm install node
   fi
   nvm use node
+}
+
+install_nodejs() {
+  if ! command -v node >/dev/null; then
+    brew_install node
+  fi
 
   # cnpm
   if ! command -v cnpm >/dev/null; then

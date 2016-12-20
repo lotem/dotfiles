@@ -172,6 +172,12 @@ install_homebrew() {
       append_to_zshrc 'export PATH="/usr/local/bin:$PATH"' 1
 
       export PATH="/usr/local/bin:$PATH"
+
+      # https://lug.ustc.edu.cn/wiki/mirrors/help/brew.git
+      (
+          cd "$(brew --repo)"
+          git remote set-url origin git://mirrors.ustc.edu.cn/brew.git
+      )
   else
     fancy_echo "Homebrew already installed. Skipping ..."
   fi

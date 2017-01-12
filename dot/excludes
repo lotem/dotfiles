@@ -1,6 +1,3 @@
-/backup/
-/warehouse/
-/**/warehouse/
 /Desktop/*.lnk
 /examples.desktop
 cygwin/tmp/
@@ -23,7 +20,6 @@ cygwin/tmp/
 ._*
 .DS_Store
 .localized
-.directory
 desktop.ini
 Thumbs.db
 *~
@@ -32,4 +28,3 @@ Thumbs.db
 *.class
 .*.swp
 .swp
-/.*

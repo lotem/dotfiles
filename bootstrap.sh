@@ -233,12 +233,23 @@ setup_dotfiles() {
   fi
 
   pushd "$(dirname $0)"
-  gpg --decrypt private.gpg | tar x
+  setup_private_config
   rcup -v -d dot -d private
   popd
 
   if [ -f "$HOME/.exports" ]; then
     append_to_zshrc 'source "$HOME/.exports"'
+  fi
+}
+
+setup_private_config() {
+  if [ -d private ]; then
+    return
+  fi
+  if [ -f private.gpg ]; then
+    gpg --decrypt private.gpg | tar x
+  else
+    git submodule update --init private
   fi
 }
 

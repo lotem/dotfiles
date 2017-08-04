@@ -357,8 +357,13 @@ npm_install_global() {
 install_rust() {
   PATH=$PATH:$HOME/.cargo/bin
   if ! command -v cargo &>/dev/null; then
-    curl https://sh.rustup.rs -sSf | sh -s -- -y
+    curl https://sh.rustup.rs -sSf | sh -s -- -y --default-toolchain nightly
+    rustup component add rls --toolchain nightly
+    rustup component add rust-analysis --toolchain nightly
+    rustup component add rust-src --toolchain nightly
     cargo install racer
+    cargo install rustfmt-nightly
+    cargo install clippy
   fi
   rcup -v -d dot cargo
 }

@@ -20,8 +20,7 @@ if [ -d "$HOME/.homebrew" ]; then
 fi
 
 # Rust
-export RUST_SRC_HOME=$HOME/src/rust
-export RUST_SRC_PATH=$RUST_SRC_HOME/src
+#export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
 export PATH=$PATH:$HOME/.cargo/bin
 
 # rustup USTC mirror

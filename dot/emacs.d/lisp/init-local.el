@@ -12,10 +12,10 @@
 ;; Reduce the number of characters before company kicks in
 (setq company-minimum-prefix-length 1)
 ;; Set path to racer binary
-(setq racer-cmd "/Users/chengong/.cargo/bin/racer")
+(setq racer-cmd (expand-file-name "~/.cargo/bin/racer"))
 
 ;; Set path to rust src directory
-(setq racer-rust-src-path "/Users/chengong/src/rust/src/")
+(setq racer-rust-src-path (expand-file-name "~/.rustup/toolchains/nightly-x86_64-apple-darwin/lib/rustlib/src/rust/src"))
 
 ;; Load rust-mode when you open `.rs` files
 (add-to-list 'auto-mode-alist '("\\.rs\\'" . rust-mode))
@@ -43,12 +43,12 @@
              (local-set-key (kbd "TAB") #'racer-complete-or-indent)))
 
 ;;; org-page
-(require-package 'org-page)
-(require 'org-page)
-(setq op/repository-directory "~/org")
-(setq op/site-domain "http://sst.rime.im/")
-(setq op/personal-disqus-shortname "zzsst")
-(setq op/personal-duoshuo-shortname "zzsst")
+;;(require-package 'org-page)
+;;(require 'org-page)
+;;(setq op/repository-directory "~/org")
+;;(setq op/site-domain "http://sst.rime.im/")
+;;(setq op/personal-disqus-shortname "zzsst")
+;;(setq op/personal-duoshuo-shortname "zzsst")
 
 (require-package 'google-c-style)
 (require 'google-c-style)

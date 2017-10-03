@@ -42,14 +42,6 @@
              ;; Key binding to auto complete and indent
              (local-set-key (kbd "TAB") #'racer-complete-or-indent)))
 
-;;; org-page
-;;(require-package 'org-page)
-;;(require 'org-page)
-;;(setq op/repository-directory "~/org")
-;;(setq op/site-domain "http://sst.rime.im/")
-;;(setq op/personal-disqus-shortname "zzsst")
-;;(setq op/personal-duoshuo-shortname "zzsst")
-
 (require-package 'google-c-style)
 (require 'google-c-style)
 (add-hook 'c-mode-common-hook 'google-set-c-style)
@@ -58,5 +50,8 @@
 (add-hook 'c-mode-common-hook
           (lambda()
             (local-set-key  (kbd "C-c o") 'ff-find-other-file)))
+
+(require-package 'snazzy-theme)
+(load-theme 'snazzy t)
 
 (provide 'init-local)

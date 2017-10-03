@@ -292,6 +292,19 @@ use_omz_theme() {
   replace_zshrc_variable ZSH_THEME "$theme"
 }
 
+use_zprezto_theme() {
+  local zpreztorc="$HOME/.zpreztorc"
+  if [ ! -w "$zpreztorc" ]; then
+    return
+  fi
+  local theme="$1"
+  if [ -n "$theme" ]; then
+    sed "s/^\\(zstyle ':prezto:module:prompt' theme\\) '.*'$/\\1 '${theme}'/" \
+    "$zpreztorc" > "${zpreztorc}.tmp"
+    mv "${zpreztorc}.tmp" "$zpreztorc"
+  fi
+}
+
 use_zprezto_modules() {
   local zpreztorc="$HOME/.zpreztorc"
   if [ ! -w "$zpreztorc" ]; then

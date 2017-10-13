@@ -9,8 +9,8 @@
 " }
 
 " UI preferences {
-    "color github
-    "color peaksea
+    "color base16-railscasts
+    color luna
 
     if WINDOWS()
         language messages zh_CN.utf-8

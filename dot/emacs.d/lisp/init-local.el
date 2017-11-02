@@ -51,6 +51,15 @@
           (lambda()
             (local-set-key  (kbd "C-c o") 'ff-find-other-file)))
 
+(require-package 'org-page)
+(require 'org-page)
+(setq op/repository-directory (expand-file-name "~/org/sst"))
+(setq op/site-domain "http://sst.rime.im/")
+
+(require-package 'org-trello)
+(require 'org-trello)
+(custom-set-variables '(org-trello-files (directory-files "~/org/trello")))
+
 (require-package 'snazzy-theme)
 (load-theme 'snazzy t)
 

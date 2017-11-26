@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Usage: fsync source_volume target_volume [options]
+# Usage: volsync source_volume target_volume [options]
 #
 # Volume search path:
 #   /Volumes/${volume_name}
@@ -107,75 +107,75 @@ if [[ "$source_volume_path" -ef "$target_volume_path" ]]; then
     exit 1
 fi
 
-fsync_config_file=.fsync-config
+volsync_config_file=.volsync-config
 
 # Predefined flags:
-fsync_dirlink="-kK"
-fsync_fat="--no-p --no-g --chmod=F-x --modify-window=1"
-fsync_unix="-lHopg"
-fsync_onefs="-x"
-# Override the following variables in .fsync-config as necessary.
-fsync_command="rsync"
-fsync_flags="-FOrtv"
-# Set value to empty in .fsync-config to disable the feature.
-fsync_backup_dir="$target_volume_path/backup/`date +%F`"
-fsync_excludes_file=~/.excludes
-fsync_filter_file=$source_volume_path/.fsync-filter
+volsync_dirlink="-kK"
+volsync_fat="--no-p --no-g --chmod=F-x --modify-window=1"
+volsync_unix="-lHopg"
+volsync_onefs="-x"
+# Override the following variables in .volsync-config as necessary.
+volsync_command="rsync"
+volsync_flags="-FOrtv"
+# Set value to empty in .volsync-config to disable the feature.
+volsync_backup_dir="$target_volume_path/backup/`date +%F`"
+volsync_excludes_file=~/.excludes
+volsync_filter_file=$source_volume_path/.volsync-filter
 
 # Apply configuration options.
 if [[ ! "$configuration" =~ :nodel ]]; then
-  fsync_flags="$fsync_flags --del"
+  volsync_flags="$volsync_flags --del"
 fi
 if [[ "$configuration" =~ :dirlink ]]; then
-  fsync_flags="$fsync_flags $fsync_dirlink"
+  volsync_flags="$volsync_flags $volsync_dirlink"
 fi
 if [[ "$configuration" =~ :fat ]]; then
-  fsync_flags="$fsync_flags $fsync_fat"
+  volsync_flags="$volsync_flags $volsync_fat"
 fi
 if [[ "$configuration" =~ :unix ]]; then
-  fsync_flags="$fsync_flags $fsync_unix"
+  volsync_flags="$volsync_flags $volsync_unix"
 fi
 if [[ "$configuration" =~ :onefs ]]; then
-  fsync_flags="$fsync_flags $fsync_onefs"
+  volsync_flags="$volsync_flags $volsync_onefs"
 fi
 if [[ "$configuration" =~ :nobackup ]]; then
-  fsync_backup_dir=
+  volsync_backup_dir=
 elif [[ "$configuration" =~ :tmp ]]; then
-  fsync_backup_dir="/tmp/backup/`date +%F`"
+  volsync_backup_dir="/tmp/backup/`date +%F`"
 elif [[ "$configuration" =~ :trash ]]; then
   if [[ "$OSTYPE" =~ 'darwin' ]]; then
-    fsync_backup_dir="~/.Trash/`date +%F`"
+    volsync_backup_dir="~/.Trash/`date +%F`"
   elif [[ "$OSTYPE" =~ 'linux-gnu' ]]; then
-    fsync_backup_dir="~/.local/share/Trash/files/`date +%F`"
+    volsync_backup_dir="~/.local/share/Trash/files/`date +%F`"
   fi
 fi
 
 # Read options specific to the volume.
-if [[ -e "$source_volume_path/$fsync_config_file" ]]; then
-  source "$source_volume_path/$fsync_config_file"
+if [[ -e "$source_volume_path/$volsync_config_file" ]]; then
+  source "$source_volume_path/$volsync_config_file"
 fi
 
-if [[ -n "$fsync_backup_dir" ]]; then
-  fsync_backup="-b --backup-dir=$fsync_backup_dir"
+if [[ -n "$volsync_backup_dir" ]]; then
+  volsync_backup="-b --backup-dir=$volsync_backup_dir"
 fi
 
-if [[ -e "$fsync_excludes_file" ]]; then
-  fsync_excludes="--exclude-from=$fsync_excludes_file"
+if [[ -e "$volsync_excludes_file" ]]; then
+  volsync_excludes="--exclude-from=$volsync_excludes_file"
 fi
 
-if [[ -e "$fsync_filter_file" ]]; then
-  fsync_filter="--filter=merge_$fsync_filter_file"
+if [[ -e "$volsync_filter_file" ]]; then
+  volsync_filter="--filter=merge_$volsync_filter_file"
 fi
 
-fsync_flags="$fsync_flags $@ $fsync_backup $fsync_excludes $fsync_filter"
+volsync_flags="$volsync_flags $@ $volsync_backup $volsync_excludes $volsync_filter"
 
 function do_sync {
-  echo "SYNC COMMAND:" $fsync_command $fsync_flags "$source_volume_path/" "$target_volume_path/"
-  $fsync_command $fsync_flags "$source_volume_path/" "$target_volume_path/" || exit 1
+  echo "SYNC COMMAND:" $volsync_command $volsync_flags "$source_volume_path/" "$target_volume_path/"
+  $volsync_command $volsync_flags "$source_volume_path/" "$target_volume_path/" || exit 1
   echo
   echo "all up to date."
 }
 
-do_sync 2>&1 | tee /tmp/filesync.log
+do_sync 2>&1 | tee /tmp/volsync.log
 
 # vim:set ts=2 sw=2 sts=2 sta et:

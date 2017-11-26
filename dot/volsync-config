@@ -4,5 +4,5 @@
 echo "configuration: $configuration"
 
 if [[ "$configuration" == "" ]]; then
-  export fsync_flags="$fsync_flags $fsync_unix $fsync_dirlink"
+  export volsync_flags="$volsync_flags $volsync_unix $volsync_dirlink"
 fi

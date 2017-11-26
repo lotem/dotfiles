@@ -1,0 +1,105 @@
+#!/bin/sh
+
+set -e
+
+exe_name="$(basename $0)"
+root_dir=$(cd "$(dirname $0)/.."; pwd)
+
+help() {
+  echo "Usage:
+\$ encrypt=(yes|no) ${exe_name} create <volume> <size-in-GB>
+\$ ${exe_name} open <volume>
+\$ ${exe_name} close <volume>
+"
+}
+
+create_disk_image() {
+  local volume="$1"
+  local size="$2"
+  if [ -z "$volume" ] || [ -z "$size" ]; then
+    help
+    exit 1
+  fi
+
+  local file="${root_dir}/volumes/${volume}.img"
+  if [ -e "$file" ]; then
+    echo "file already exists: $file"
+    exit 1
+  fi
+
+  dd of="$file" bs=1k seek=$(($size * 1024 * 1024)) count=0
+
+  if [ "$encrypt" == 'no' ]; then
+    mkfs.ext4 -L "$volume" "$file"
+  else
+    cryptsetup -v luksFormat "$file"
+    cryptsetup luksOpen "$file" "$volume"
+    mkfs.ext4 -L "$volume" "/dev/mapper/${volume}"
+    echo 'filesystem created.'
+    sleep 1
+    cryptsetup luksClose "$volume"
+  fi
+  echo 'sparse disk image created.'
+  ls -lahts "$file"
+
+  #df -hm
+}
+
+open_disk_image() {
+  local volume="$1"
+  if [ -z "${volume}" ]; then
+    help
+    exit 1
+  fi
+
+  local file="${root_dir}/volumes/${volume}.img"
+  if ! [ -f "$file" ]; then
+    echo "disk image does not exist: $file"
+    exit 1
+  fi
+
+  local mount_point="${root_dir}/mnt/${volume}"
+  mkdir -p "${mount_point}"
+
+  if echo LUKS | cmp --bytes=4 --quiet "$file" ; then
+    cryptsetup luksOpen "$file" "$volume"
+    file="/dev/mapper/${volume}"
+  fi
+
+  mount -o loop "${file}" "${mount_point}"
+}
+
+close_disk_image() {
+  local volume="$1"
+  if [ -z "${volume}" ]; then
+    help
+    exit 1
+  fi
+
+  local file="${root_dir}/volumes/${volume}.img"
+  local mount_point="${root_dir}/mnt/${volume}"
+  umount "${mount_point}"
+
+  if echo LUKS | cmp --bytes=4 --quiet "$file" ; then
+    sleep 1
+    cryptsetup luksClose "$volume"
+  fi
+}
+
+# main
+if [ -z "$1" ]; then
+  help
+  exit 0
+fi
+cmd="$1"
+shift
+if [ "$cmd" == 'create' ]; then
+  create_disk_image $@
+elif [ "$cmd" == 'open' ]; then
+  open_disk_image $@
+elif [ "$cmd" == 'close' ]; then
+  close_disk_image $@
+else
+  help
+  exit 1
+fi

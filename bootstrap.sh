@@ -495,8 +495,12 @@ run_commands() {
 }
 
 main() {
-  #install_omz
-  install_prezto
+
+  if [ "$MY_ZSH_CONFIG" = 'omz' ]; then
+    install_omz
+  elif [ "$MY_ZSH_CONFIG" = 'zprezto' ]; then
+    install_prezto
+  fi
   setup_zsh
 
   if [[ "$OSTYPE" =~ darwin ]]; then

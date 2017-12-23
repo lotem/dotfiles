@@ -427,11 +427,6 @@ install_homebrew_packages() {
   map brew_install ${brew_formulas[@]}
   map brew_tap_install ${brew_tap_formulas[@]}
   map brew_cask_install ${brew_casks[@]}
-
-  # TODO: merge osx_brew_* into brew_*
-  map brew_install ${osx_brew_formulas[@]}
-  map brew_tap_install ${osx_brew_tap_formulas[@]}
-  map brew_cask_install ${osx_brew_casks[@]}
 }
 
 install_archlinux_packages() {

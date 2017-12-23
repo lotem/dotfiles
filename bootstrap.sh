@@ -429,15 +429,34 @@ install_homebrew_packages() {
   map brew_cask_install ${brew_casks[@]}
 }
 
+aur_install() {
+  if pacman -Qkq $@ &> /dev/null; then
+    fancy_echo "Package '%s' is already installed. Skipping ..." $@
+  else
+    packer -S --noedit $@
+  fi
+}
+
+packer_url='https://aur.archlinux.org/packages/packer'
+
+install_packer() {
+  if ! command -v packer &> /dev/null; then
+    fancy_echo 'Not implemented; please install packer manually:\n%s' ${packer_url}
+    return 1
+  fi
+}
+
 install_archlinux_packages() {
   if [ ${#archlinux_packages[@]} -ne 0 ]; then
+    sudo pacman -Sy
     fancy_echo 'Installling packages ...'
-    sudo pacman -Sy --needed ${archlinux_packages[@]}
+    map 'sudo pacman -S --needed' ${archlinux_packages[@]}
   fi
-  # TODO: install_packer
+
+  install_packer
   if [ ${#aur_packages[@]} -ne 0 ]; then
     fancy_echo 'Installling AUR packages ...'
-    packer -S ${aur_packages[@]}
+    map aur_install ${aur_packages[@]}
   fi
 }
 

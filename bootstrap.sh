@@ -128,7 +128,7 @@ brew_cask_is_installed() {
 
 brew_cask_install() {
   if brew_cask_is_installed "$1"; then
-    echo "$1 is already installed, brew cask upgrade is not yet implemented"
+    fancy_echo "%s is already installed, brew cask upgrade is not yet implemented" "$1"
   else
     brew cask install "$@"
   fi
@@ -229,7 +229,8 @@ setup_zsh() {
 
 setup_dotfiles() {
   if ! command -v rcup >/dev/null; then
-    brew_tap_install 'thoughtbot/formulae/rcm'
+    fancy_echo 'Error: rcm is required'
+    return 1
   fi
 
   pushd "$(dirname $0)"
@@ -265,13 +266,15 @@ setup_vim() {
   fi
 }
 
-install_nano() {
-  git_clone_or_pull 'https://github.com/lotem/nanorc.git' "$HOME/.nano" --depth 1
+setup_nano() {
+  git_clone_or_pull 'https://github.com/scopatz/nanorc.git' "$HOME/.nano" --depth 1
   if [ ! -f "$HOME/.nanorc" ]; then
     cat "$HOME/.nano/nanorc" > "$HOME/.nanorc"
   fi
-  if [ "$(command -v nano)" != "$(brew --prefix)/bin/nano" ]; then
-    brew_tap_install 'homebrew/dupes/nano'
+
+  if [[ "$OSTYPE" =~ darwin ]] &&
+      [ "$(command -v nano)" != "$(brew --prefix)/bin/nano" ]; then
+    fancy_echo "Please install the latest version of nano"
   fi
 }
 
@@ -318,10 +321,10 @@ use_zprezto_modules() {
     fi
   done
 
-  if [ -n "$new_modules" ]; then
-    sed "/^  'prompt'"'$/i\
-'"$(printf "#(  '%s' )#"'\\\n' "${new_modules[@]}")"'
-' "$zpreztorc" | sed 's/#(\(.*\))#$/\1\\/' > "${zpreztorc}.tmp"
+  if [ ${#new_modules[@]} -ne 0 ]; then
+    sed "/^  'prompt'\$/i\\
+$(printf "#(  '%s' )#"'\\\n' "${new_modules[@]}" | sed '$s/\\$//')
+" "$zpreztorc" | sed 's/#(\(.*\))#/\1\\/' > "${zpreztorc}.tmp"
     mv "${zpreztorc}.tmp" "$zpreztorc"
   fi
 }
@@ -347,25 +350,30 @@ install_nodejs() {
 
   # cnpm
   if ! command -v cnpm >/dev/null; then
-    npm install -g cnpm --registry=http://registry.npm.taobao.org
+    sudo npm install -g cnpm --registry=http://registry.npm.taobao.org
   fi
 }
 
 npm_install_global() {
-  if cnpm ls -g "$1" &>/dev/null; then
+  local npm='npm'
+  if ! [ -w "$(npm prefix -g)/lib/node_modules" ]; then
+    npm='sudo npm'
+  fi
+
+  if npm ls -g "$1" &>/dev/null; then
     fancy_echo "%s is already installed. Upgrading ..." "$1"
-    cnpm update -g "$@"
+    $npm update -g "$@"
   else
-    cnpm install -g "$@"
+    $npm install -g "$@"
   fi
 }
 
 install_rust() {
   PATH=$PATH:$HOME/.cargo/bin
   if ! command -v cargo &>/dev/null; then
-    curl https://sh.rustup.rs -sSf | sh -s -- -y --default-toolchain nightly
-    rustup component add rls --toolchain nightly
-    rustup component add rust-analysis --toolchain nightly
+    if ! command -v rustup &>/dev/null; then
+      curl https://sh.rustup.rs -sSf | sh -s -- -y --default-toolchain nightly
+    fi
     rustup component add rust-src --toolchain nightly
     cargo install racer
     cargo install rustfmt-nightly
@@ -415,6 +423,29 @@ osx_brew_casks=(
 global_node_modules=(
 )
 
+install_homebrew_packages() {
+  map brew_install ${brew_formulas[@]}
+  map brew_tap_install ${brew_tap_formulas[@]}
+  map brew_cask_install ${brew_casks[@]}
+
+  # TODO: merge osx_brew_* into brew_*
+  map brew_install ${osx_brew_formulas[@]}
+  map brew_tap_install ${osx_brew_tap_formulas[@]}
+  map brew_cask_install ${osx_brew_casks[@]}
+}
+
+install_archlinux_packages() {
+  if [ ${#archlinux_packages[@]} -ne 0 ]; then
+    fancy_echo 'Installling packages ...'
+    sudo pacman -Sy --needed ${archlinux_packages[@]}
+  fi
+  # TODO: install_packer
+  if [ ${#aur_packages[@]} -ne 0 ]; then
+    fancy_echo 'Installling AUR packages ...'
+    packer -S ${aur_packages[@]}
+  fi
+}
+
 process_args() {
   local arg
   for arg in $@; do
@@ -454,28 +485,26 @@ main() {
   install_prezto
   setup_zsh
 
-  install_homebrew
-  brew_update
-
-  # `brew cask` is now officially supported.
-  #brew_tap caskroom/cask
-
-  map brew_install ${brew_formulas[@]}
-  map brew_tap_install ${brew_tap_formulas[@]}
-  map brew_cask_install ${brew_casks[@]}
-
   if [[ "$OSTYPE" =~ darwin ]]; then
-    map brew_install ${osx_brew_formulas[@]}
-    map brew_tap_install ${osx_brew_tap_formulas[@]}
-    map brew_cask_install ${osx_brew_casks[@]}
+
+    install_homebrew
+    brew_update
+    install_homebrew_packages
+
   elif [[ "$OSTYPE" =~ linux-gnu ]]; then
-    true
+
+    if ! command -v pacman &>/dev/null; then
+      fancy_echo 'Only Arch Linux is supported at the moment.'
+      return 1
+    fi
+    install_archlinux_packages
+
   fi
 
   setup_emacs
   setup_dotfiles
+  setup_nano
   setup_vim
-  install_nano
 
   install_nodejs
   map npm_install_global ${global_node_modules[@]}

@@ -10,7 +10,7 @@
 
 " UI preferences {
     "color base16-railscasts
-    color luna
+    "color luna
 
     if WINDOWS()
         language messages zh_CN.utf-8

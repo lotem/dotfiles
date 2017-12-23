@@ -1,8 +1,7 @@
 #!/bin/bash
-# vim: set syntax=sh sw=2 sts=2 et:
 
 echo "configuration: $configuration"
 
-if [[ "$configuration" == "" ]]; then
+if [ -z "$configuration" ]; then
   export volsync_flags="$volsync_flags $volsync_unix $volsync_dirlink"
 fi

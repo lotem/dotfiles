@@ -53,14 +53,6 @@ import_module 'zsh'
 load_config 'bootstrap.conf'
 
 main() {
-  # Setup configuration (creates .zshrc) before switching to zsh.
-  if [ "$MY_ZSH_CONFIG" = 'omz' ]; then
-    install_omz
-  elif [ "$MY_ZSH_CONFIG" = 'zprezto' ]; then
-    install_prezto
-  fi
-  setup_zsh
-
   # Install software packages.
   if [[ "$OSTYPE" =~ darwin ]]; then
 
@@ -77,6 +69,14 @@ main() {
     install_archlinux_packages
 
   fi
+
+  # Setup configuration (creates .zshrc) before switching to zsh.
+  if [ "$MY_ZSH_CONFIG" = 'omz' ]; then
+    install_omz
+  elif [ "$MY_ZSH_CONFIG" = 'zprezto' ]; then
+    install_prezto
+  fi
+  setup_zsh
 
   # This creates .emacs.d/ before setup_dotfiles adds symlinks in the directory.
   setup_emacs

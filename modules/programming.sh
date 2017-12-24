@@ -60,7 +60,6 @@ install_rust() {
     fi
     rustup component add rust-src --toolchain nightly
     cargo install racer
-    cargo install rustfmt-nightly
     cargo install clippy
   fi
   rcup -v -d dot cargo

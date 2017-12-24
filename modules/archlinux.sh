@@ -2,7 +2,7 @@
 
 install_archlinux_packages() {
   if [ ${#archlinux_packages[@]} -ne 0 ]; then
-    sudo pacman -Sy
+    sudo pacman -Syu
     fancy_echo 'Installling packages ...'
     map 'sudo pacman -S --needed' ${archlinux_packages[@]}
   fi

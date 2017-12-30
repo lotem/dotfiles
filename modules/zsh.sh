@@ -126,9 +126,9 @@ use_zprezto_modules() {
   fi
 
   local new_modules=()
-  for module in $@ ; do
+  for module in "$@" ; do
     if ! grep -qs '^\s*'"'$module'"'\s*\\$' "$zpreztorc"; then
-      new_modules+=($module)
+      new_modules+=("$module")
     fi
   done
 

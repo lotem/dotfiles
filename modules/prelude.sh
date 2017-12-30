@@ -16,10 +16,10 @@ git_clone_or_pull() {
   shift
   local local_repo_vc_dir=$local_repo/.git
   if [ ! -d "$local_repo_vc_dir" ]; then
-    git clone --recursive $repo_src $local_repo $@
+    git clone --recursive "$repo_src" "$local_repo" "$@"
   else
-    pushd $local_repo
-    git pull $repo_src && git submodule update --init --recursive
+    pushd "$local_repo"
+    git pull "$repo_src" && git submodule update --init --recursive
     popd
   fi
 }
@@ -58,9 +58,9 @@ load_config() {
 
 process_args() {
   local arg
-  for arg in $@; do
+  for arg in "$@"; do
     if [[ "$arg" =~ skip=.* ]]; then
-      local function_name=${arg#skip=}
+      local function_name="${arg#skip=}"
       eval "$function_name () {
         fancy_echo 'Skipping %s %s ...' $function_name \"\$*\"
       }"
@@ -82,7 +82,7 @@ run_commands() {
     main
   else
     local cmd
-    for cmd in $@; do
+    for cmd in "$@"; do
       fancy_echo 'Running: %s' "${cmd}"
       eval "${cmd}"
     done

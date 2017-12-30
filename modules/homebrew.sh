@@ -26,9 +26,9 @@ install_homebrew() {
 }
 
 install_homebrew_packages() {
-  map brew_install ${brew_formulas[@]}
-  map brew_tap_install ${brew_tap_formulas[@]}
-  map brew_cask_install ${brew_casks[@]}
+  map brew_install "${brew_formulas[@]}"
+  map brew_tap_install "${brew_tap_formulas[@]}"
+  map brew_cask_install "${brew_casks[@]}"
 }
 
 brew_update() {

@@ -89,15 +89,15 @@ main() {
   setup_vim
 
   install_nodejs
-  map npm_install_global ${global_node_modules[@]}
+  map npm_install_global "${global_node_modules[@]}"
   install_rust
 
   customize
 }
 
-process_args $@
+process_args "$@"
 
-run_commands ${commands[@]}
+run_commands "${commands[@]}"
 
 fancy_echo 'all done.'
 

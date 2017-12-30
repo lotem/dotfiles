@@ -46,6 +46,7 @@ source "$(dirname $0)/modules/prelude.sh"
 
 import_module 'archlinux'
 import_module 'editor'
+import_module 'fedora'
 import_module 'homebrew'
 import_module 'programming'
 import_module 'zsh'
@@ -62,11 +63,14 @@ main() {
 
   elif [[ "$OSTYPE" =~ linux-gnu ]]; then
 
-    if ! command -v pacman &>/dev/null; then
-      fancy_echo 'Only Arch Linux (and relatives) is supported at the moment.'
+    if command -v pacman &>/dev/null; then
+      install_archlinux_packages
+    elif command -v dnf &>/dev/null; then
+      install_fedora_packages
+    else
+      fancy_echo 'Only Arch Linux and Fedora are supported at the moment.'
       return 1
     fi
-    install_archlinux_packages
 
   fi
 

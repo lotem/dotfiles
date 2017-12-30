@@ -40,11 +40,11 @@ map() {
   shift
   local exclude_pattern=" ${excludes[*]} "
   local item
-  for item in $@ ; do
+  for item in "$@" ; do
     if [[ "$exclude_pattern" =~ " $item " ]]; then
       fancy_echo 'Excluded package %s.' "$item"
     else
-      $command $item
+      $command "$item"
     fi
   done
 }
@@ -91,8 +91,9 @@ run_commands() {
 
 setup_dotfiles() {
   if ! command -v rcup >/dev/null; then
-    fancy_echo 'Error: rcm is required'
-    return 1
+    fancy_echo 'rcm is required. Installing from source ...'
+    import_module 'rcm'
+    install_rcm
   fi
 
   pushd "$(dirname $0)"

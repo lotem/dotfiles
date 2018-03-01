@@ -54,13 +54,27 @@ npm_install_global() {
 
 install_rust() {
   PATH=$PATH:$HOME/.cargo/bin
+  if [ "$RUST_MIRROR" = 'utsc' ]; then
+    RUSTUP_DIST_SERVER=https://mirrors.ustc.edu.cn/rust-static
+    RUSTUP_UPDATE_ROOT=https://mirrors.ustc.edu.cn/rust-static/rustup/dist
+  fi
   if ! command -v cargo &>/dev/null; then
     if ! command -v rustup &>/dev/null; then
       curl https://sh.rustup.rs -sSf | sh -s -- -y --default-toolchain nightly
     fi
     rustup component add rust-src --toolchain nightly
-    cargo install racer
-    cargo install clippy
   fi
   rcup -v -d dot cargo
+}
+
+cargo_install() {
+  local cmd
+  local crate
+  for crate in $@; do
+    cmd="${crate#*:}"
+    crate="${crate%:*}"
+    if ! command -v "${cmd}" &>/dev/null; then
+      cargo install "${crate}"
+    fi
+  done
 }

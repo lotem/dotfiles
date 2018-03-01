@@ -20,12 +20,15 @@ if [ -d "$HOME/.homebrew" ]; then
 fi
 
 # Rust
+RUST_MIRROR='ustc'
+
 #export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
 export PATH=$PATH:$HOME/.cargo/bin
 
-# rustup USTC mirror
-#export RUSTUP_DIST_SERVER=https://mirrors.ustc.edu.cn/rust-static
-#export RUSTUP_UPDATE_ROOT=https://mirrors.ustc.edu.cn/rust-static/rustup/dist
+if [ "$RUST_MIRROR" = 'utsc' ]; then
+  export RUSTUP_DIST_SERVER=https://mirrors.ustc.edu.cn/rust-static
+  export RUSTUP_UPDATE_ROOT=https://mirrors.ustc.edu.cn/rust-static/rustup/dist
+fi
 
 # Golang
 export GOPATH=$HOME/go

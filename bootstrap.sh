@@ -88,11 +88,12 @@ main() {
   setup_nano
   setup_vim
 
+  customize
+
   install_nodejs
   map npm_install_global "${global_node_modules[@]}"
   install_rust
-
-  customize
+  map cargo_install "${cargo_install_crates[@]}"
 }
 
 process_args "$@"

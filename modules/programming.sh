@@ -34,7 +34,7 @@ install_nodejs() {
 
   # cnpm
   if ! command -v cnpm >/dev/null; then
-    sudo npm install -g cnpm --registry=http://registry.npm.taobao.org
+    npm_install_global cnpm --registry=http://registry.npm.taobao.org
   fi
 }
 

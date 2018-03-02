@@ -49,6 +49,7 @@ import_module 'editor'
 import_module 'fedora'
 import_module 'homebrew'
 import_module 'programming'
+import_module 'ubuntu'
 import_module 'zsh'
 
 load_config 'bootstrap.conf'
@@ -67,8 +68,11 @@ main() {
       install_archlinux_packages
     elif command -v dnf &>/dev/null; then
       install_fedora_packages
+    elif command -v apt-get &>/dev/null; then
+      # TODO: try other Debian-based distros?
+      install_ubuntu_packages
     else
-      fancy_echo 'Only Arch Linux and Fedora are supported at the moment.'
+      fancy_echo 'Only Arch Linux, Fedora and Ubuntu are supported at the moment.'
       return 1
     fi
 

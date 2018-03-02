@@ -29,11 +29,16 @@ install_nvm() {
 
 install_nodejs() {
   if ! command -v node >/dev/null; then
-    brew_install node
+    if [[ "$OSTYPE" =~ darwin ]]; then
+      brew_install node
+    elif [[ "$OSTYPE" =~ linux-gnu ]] && command -v apt-get &>/dev/null; then
+      curl -sL https://deb.nodesource.com/setup_9.x | sudo -E bash -
+      sudo apt-get install -y nodejs
+    fi
   fi
 
   # cnpm
-  if ! command -v cnpm >/dev/null; then
+  if ! command -v cnpm &>/dev/null; then
     npm_install_global cnpm --registry=http://registry.npm.taobao.org
   fi
 }

@@ -54,8 +54,9 @@ import_module 'zsh'
 
 load_config 'bootstrap.conf'
 
-main() {
-  # Install software packages.
+install_software_packages() {
+  fancy_echo 'Installing software packages ...'
+
   if [[ "$OSTYPE" =~ darwin ]]; then
 
     install_homebrew
@@ -77,6 +78,10 @@ main() {
     fi
 
   fi
+}
+
+main() {
+  install_software_packages
 
   # Setup configuration (creates .zshrc) before switching to zsh.
   if [ "$MY_ZSH_CONFIG" = 'omz' ]; then
@@ -94,10 +99,7 @@ main() {
 
   customize
 
-  install_nodejs
-  map npm_install_global "${global_node_modules[@]}"
-  install_rust
-  map cargo_install "${cargo_install_crates[@]}"
+  install_devtools
 }
 
 process_args "$@"

@@ -83,3 +83,13 @@ cargo_install() {
     fi
   done
 }
+
+install_devtools() {
+  fancy_echo 'Installing development tools ...'
+
+  install_nodejs
+  map npm_install_global "${global_node_modules[@]}"
+
+  install_rust
+  map cargo_install "${cargo_install_crates[@]}"
+}

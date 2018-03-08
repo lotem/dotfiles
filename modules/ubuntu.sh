@@ -5,9 +5,13 @@ apt_get_install() {
   sudo apt-get install -y "$package"
 }
 
+apt_get_update() {
+  sudo apt-get update
+}
+
 install_ubuntu_packages() {
   if [ ${#ubuntu_packages[@]} -ne 0 ]; then
-    sudo apt-get update
+    apt_get_update
     fancy_echo 'Installling packages ...'
     map apt_get_install "${ubuntu_packages[@]}"
   fi

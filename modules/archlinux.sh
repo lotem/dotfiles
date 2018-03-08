@@ -2,11 +2,23 @@
 
 install_archlinux_packages() {
   if [ ${#archlinux_packages[@]} -ne 0 ]; then
-    sudo pacman -Syu
+    pacman_upgrade
     fancy_echo 'Installling packages ...'
-    map 'sudo pacman -S --needed' "${archlinux_packages[@]}"
+    map pacman_install "${archlinux_packages[@]}"
   fi
 
+  install_aur_packages
+}
+
+pacman_upgrade() {
+  sudo pacman -Syu
+}
+
+pacman_install() {
+  sudo pacman -S --needed $@
+}
+
+install_aur_packages() {
   install_packer
   if [ ${#aur_packages[@]} -ne 0 ]; then
     fancy_echo 'Installling AUR packages ...'

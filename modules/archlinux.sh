@@ -34,11 +34,20 @@ aur_install() {
   fi
 }
 
-packer_url='https://aur.archlinux.org/packages/packer'
+aur_package_url='https://aur.archlinux.org/packages/%s'
+aur_snapshot_url='https://aur.archlinux.org/cgit/aur.git/snapshot/%s.tar.gz'
+packer_build_dir='/tmp/packer-build'
 
 install_packer() {
   if ! command -v packer &> /dev/null; then
-    fancy_echo 'Not implemented; please install packer manually:\n%s' "${packer_url}"
-    return 1
+    pacman_install 'base-devel'
+    fancy_echo "Installing packer from ${aur_package_url}" packer
+    mkdir -p "${packer_build_dir}"
+    pushd "${packer_build_dir}" &>/dev/null
+    curl -L -O $(printf "${aur_snapshot_url}" packer)
+    tar -xvf packer.tar.gz
+    cd packer
+    makepkg -si
+    popd &>/dev/null
   fi
 }

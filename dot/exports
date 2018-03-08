@@ -47,10 +47,13 @@ fi
 
 # Rime
 if [[ "$OSTYPE" =~ 'linux-gnu' ]]; then
-  export RIME="$HOME/.config/ibus/rime"
+  export RIME_SHARED="/usr/share/rime-data"
+  export RIME_USER="$HOME/.config/ibus/rime"
 elif [[ "$OSTYPE" =~ 'darwin' ]]; then
-  export RIME="$HOME/Library/Rime"
+  export RIME_SHARED="/Library/Input Methods/Squirrel.app/Contents/SharedSupport"
+  export RIME_USER="$HOME/Library/Rime"
 fi
+export RIME="$RIME_USER"
 
 # }
 

@@ -5,6 +5,9 @@
 # OMZ Powerline
 DEFAULT_USER=$USERNAME
 
+# Editor
+export VISUAL='emacsclient --alternate-editor=nano'
+
 # }
 
 # Locale {

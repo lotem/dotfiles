@@ -2,10 +2,12 @@
 
 set -e
 
-exe_name="$(basename $0)"
-root_dir=$(cd "$(dirname $0)/.."; pwd)
+if [ -z "${root_dir}" ]; then
+  root_dir=$(cd "$(dirname $0)/.."; pwd)
+fi
 
 help() {
+  exe_name="$(basename $0)"
   echo "Usage:
 \$ encrypt=(yes|no) ${exe_name} create <volume> <size-in-GB>
 \$ ${exe_name} open <volume>

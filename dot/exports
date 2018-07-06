@@ -6,7 +6,8 @@
 DEFAULT_USER=$USERNAME
 
 # Editor
-export VISUAL='emacsclient --alternate-editor=nano'
+export VISUAL='emacsclient'
+export ALTERNATE_EDITOR='emacs -Q -nw'
 
 # }
 

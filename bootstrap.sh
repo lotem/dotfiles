@@ -94,8 +94,8 @@ main() {
   # This creates .emacs.d/ before setup_dotfiles adds symlinks in the directory.
   setup_emacs
   setup_dotfiles
-  setup_nano
-  setup_vim
+  #setup_nano
+  #setup_vim
 
   customize
 

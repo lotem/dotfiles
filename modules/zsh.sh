@@ -51,16 +51,27 @@ $line
 }
 
 setup_zsh() {
+  # Setup configuration (creates .zshrc) before switching to zsh.
+  if [ "$MY_ZSH_CONFIG" = 'omz' ]; then
+    install_omz
+  elif [ "$MY_ZSH_CONFIG" = 'zprezto' ]; then
+    install_prezto
+  fi
+
   if [ ! -d "$HOME/.bin/" ]; then
     mkdir "$HOME/.bin"
   fi
 
-  if [ ! -f "$HOME/.zshrc" ]; then
-    touch "$HOME/.zshrc"
+  if [ ! -f "$HOME/.zshrc.local" ]; then
+    touch "$HOME/.zshrc.local"
   fi
 
   # shellcheck disable=SC2016
   append_to_zshrc 'export PATH="$HOME/.bin:$PATH"'
+
+  if [ -f "$HOME/.zshrc.local" ]; then
+    echo '. "$HOME/.zshrc.local"' >> "$HOME/.zshrc"
+  fi
 
   case "$SHELL" in
     */zsh) : ;;

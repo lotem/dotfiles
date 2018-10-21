@@ -81,14 +81,13 @@ install_software_packages() {
 }
 
 main() {
+  # place for shell customization
+  if [ ! -f "$HOME/.zshrc.local" ]; then
+    touch "$HOME/.zshrc.local"
+  fi
+
   install_software_packages
 
-  # Setup configuration (creates .zshrc) before switching to zsh.
-  if [ "$MY_ZSH_CONFIG" = 'omz' ]; then
-    install_omz
-  elif [ "$MY_ZSH_CONFIG" = 'zprezto' ]; then
-    install_prezto
-  fi
   setup_zsh
 
   # This creates .emacs.d/ before setup_dotfiles adds symlinks in the directory.

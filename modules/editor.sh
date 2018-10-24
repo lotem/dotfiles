@@ -4,7 +4,11 @@
 
 setup_emacs() {
   if [ ! -d "$HOME/.emacs.d" ]; then
-    git_clone_or_pull 'https://github.com/purcell/emacs.d.git' "$HOME/.emacs.d" --depth 1
+    if [ "$MY_EMACS_CONFIG" = 'prelude' ]; then
+      curl -L https://git.io/epre | sh
+    elif [ "$MY_EMACS_CONFIG" = 'purcell' ]; then
+      git_clone_or_pull 'https://github.com/purcell/emacs.d.git' "$HOME/.emacs.d" --depth 1
+    fi
   fi
 }
 

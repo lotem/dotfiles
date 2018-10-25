@@ -70,7 +70,7 @@ setup_zsh() {
   append_to_zshrc 'export PATH="$HOME/.bin:$PATH"'
 
   if [ -f "$HOME/.zshrc.local" ]; then
-    echo '. "$HOME/.zshrc.local"' >> "$HOME/.zshrc"
+    echo 'source "$HOME/.zshrc.local"' >> "$HOME/.zshrc"
   fi
 
   case "$SHELL" in

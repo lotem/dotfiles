@@ -23,11 +23,26 @@ install_homebrew() {
 
 setup_homebrew_mirror() {
   if [ "$HOMEBREW_MIRROR" = 'ustc' ]; then
-    # https://lug.ustc.edu.cn/wiki/mirrors/help/brew.git
+    # https://mirrors.ustc.edu.cn/help/brew.git.html
     (
-        cd "$(brew --repo)"
-        git remote set-url origin git://mirrors.ustc.edu.cn/brew.git
+      cd "$(brew --repo)"
+      git remote set-url origin https://mirrors.ustc.edu.cn/brew.git
     )
+    # https://mirrors.ustc.edu.cn/help/homebrew-core.git.html
+    (
+      cd "$(brew --repo)/Library/Taps/homebrew/homebrew-core"
+      git remote set-url origin https://mirrors.ustc.edu.cn/homebrew-core.git
+    )
+    # https://mirrors.ustc.edu.cn/help/homebrew-cask.git.html
+    (
+      cd "$(brew --repo)"/Library/Taps/homebrew/homebrew-cask
+      git remote set-url origin https://mirrors.ustc.edu.cn/homebrew-cask.git
+    )
+    brew_update
+
+    # https://mirrors.ustc.edu.cn/help/homebrew-bottles.html
+    append_to_zshrc 'export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles'
+
   elif [ "$HOMEBREW_MIRROR" = 'tuna' ]; then
     # https://mirrors.tuna.tsinghua.edu.cn/help/homebrew/
     (

@@ -6,4 +6,4 @@
                     :family "Iosevka"
                     :slant 'normal
                     :weight 'light
-                    :height 180)
+                    :height 240)

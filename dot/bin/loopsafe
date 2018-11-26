@@ -23,7 +23,7 @@ create_disk_image() {
     exit 1
   fi
 
-  local file="${root_dir}/volumes/${volume}.img"
+  local file="${root_dir}/${volume}.img"
   if [ -e "$file" ]; then
     echo "file already exists: $file"
     exit 1
@@ -54,13 +54,13 @@ open_disk_image() {
     exit 1
   fi
 
-  local file="${root_dir}/volumes/${volume}.img"
+  local file="${root_dir}/${volume}.img"
   if ! [ -f "$file" ]; then
     echo "disk image does not exist: $file"
     exit 1
   fi
 
-  local mount_point="${root_dir}/mnt/${volume}"
+  local mount_point="${root_dir}/${volume}.mnt"
   mkdir -p "${mount_point}"
 
   if echo LUKS | cmp --bytes=4 --quiet "$file" ; then
@@ -78,9 +78,9 @@ close_disk_image() {
     exit 1
   fi
 
-  local file="${root_dir}/volumes/${volume}.img"
-  local mount_point="${root_dir}/mnt/${volume}"
-  umount "${mount_point}"
+  local file="${root_dir}/${volume}.img"
+  local mount_point="${root_dir}/${volume}.mnt"
+  umount "${mount_point}" && rmdir "${mount_point}"
 
   if echo LUKS | cmp --bytes=4 --quiet "$file" ; then
     sleep 1

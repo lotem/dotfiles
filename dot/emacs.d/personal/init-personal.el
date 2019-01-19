@@ -8,3 +8,5 @@
                     :slant 'normal
                     :weight 'light
                     :height 240)
+
+(server-start)

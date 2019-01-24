@@ -15,6 +15,7 @@ install_homebrew() {
 
       export PATH="/usr/local/bin:$PATH"
 
+      brew cask  # tap homebrew/cask
       setup_homebrew_mirror
   else
     fancy_echo "Homebrew already installed. Skipping ..."

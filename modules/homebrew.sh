@@ -20,6 +20,22 @@ install_homebrew() {
   else
     fancy_echo "Homebrew already installed. Skipping ..."
   fi
+
+  # setup homebrew-bottles mirror for current session
+  use_homebrew_bottles_mirror "$HOMEBREW_MIRROR"
+}
+
+use_homebrew_bottles_mirror() {
+    local mirror="$1"
+
+    if [ "${mirror}" = 'ustc' ]; then
+        # https://mirrors.ustc.edu.cn/help/homebrew-bottles.html
+        export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles
+
+    elif [ "${mirror}" = 'tuna' ]; then
+        # https://mirrors.tuna.tsinghua.edu.cn/help/homebrew-bottles/
+        export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles
+    fi
 }
 
 setup_homebrew_mirror() {

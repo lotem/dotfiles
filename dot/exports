@@ -23,6 +23,18 @@ if [ -d "$HOME/.homebrew" ]; then
   export CMAKE_PREFIX_PATH=$HOME:$HOME/.homebrew
 fi
 
+# Homebrew
+HOMEBREW_MIRROR='ustc'
+
+if [ "$HOMEBREW_MIRROR" = 'ustc' ]; then
+    # https://mirrors.ustc.edu.cn/help/homebrew-bottles.html
+    export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles
+
+elif [ "$HOMEBREW_MIRROR" = 'tuna' ]; then
+    # https://mirrors.tuna.tsinghua.edu.cn/help/homebrew-bottles/
+    export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles
+fi
+
 # Rust
 RUST_MIRROR='ustc'
 

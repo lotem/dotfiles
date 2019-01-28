@@ -20,19 +20,15 @@ install_homebrew() {
   else
     fancy_echo "Homebrew already installed. Skipping ..."
   fi
-
-  # setup homebrew-bottles mirror for current session
-  use_homebrew_bottles_mirror "$HOMEBREW_MIRROR"
+  setup_homebrew_bottles_mirror  # for current session
 }
 
-use_homebrew_bottles_mirror() {
-    local mirror="$1"
-
-    if [ "${mirror}" = 'ustc' ]; then
+setup_homebrew_bottles_mirror() {
+    if [ "$HOMEBREW_MIRROR" = 'ustc' ]; then
         # https://mirrors.ustc.edu.cn/help/homebrew-bottles.html
         export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles
 
-    elif [ "${mirror}" = 'tuna' ]; then
+    elif [ "$HOMEBREW_MIRROR" = 'tuna' ]; then
         # https://mirrors.tuna.tsinghua.edu.cn/help/homebrew-bottles/
         export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles
     fi
@@ -57,9 +53,6 @@ setup_homebrew_mirror() {
     )
     brew_update
 
-    # https://mirrors.ustc.edu.cn/help/homebrew-bottles.html
-    append_to_zshrc 'export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles'
-
   elif [ "$HOMEBREW_MIRROR" = 'tuna' ]; then
     # https://mirrors.tuna.tsinghua.edu.cn/help/homebrew/
     (
@@ -71,9 +64,6 @@ setup_homebrew_mirror() {
       git remote set-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-core.git
     )
     brew_update
-
-    # https://mirrors.tuna.tsinghua.edu.cn/help/homebrew-bottles/
-    append_to_zshrc 'export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles'
  fi
 }
 

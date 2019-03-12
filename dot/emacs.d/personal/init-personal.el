@@ -27,4 +27,5 @@
                     :weight 'light
                     :height 240)
 
-(server-start)
+(require 'server)
+(unless (server-running-p) (server-start))

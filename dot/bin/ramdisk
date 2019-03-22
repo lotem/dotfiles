@@ -1,8 +1,24 @@
 #!/bin/sh
 
+SECTOR_SIZE=512
+
 function mount_ramdisk {
-  NUM_SECTORS=512000
-  ramdisk_device=`hdid -nomount ram://$NUM_SECTORS`
+  local size="${1:-1G}"
+  local size_gb
+  local size_mb
+  local size_kb
+  if [[ "${size}" =~ G$ ]]; then
+    size_gb="${size%G}"
+    size_mb=$((size_gb * 1000))
+    size_kb=$((size_mb * 1000))
+  elif [[ "${size}" =~ M$ ]]; then
+    size_mb="${size%M}"
+    size_kb=$((size_mb * 1000))
+  else
+    size_kb="${size%K}"
+  fi
+  local num_sectors=$((size_kb * 1000 / SECTOR_SIZE))
+  local ramdisk_device=`hdid -nomount ram://$num_sectors`
   newfs_hfs $ramdisk_device
   echo $ramdisk_device > /tmp/ramdisk.device
   mkdir -p /tmp/ramdisk
@@ -17,11 +33,11 @@ function unmount_ramdisk {
   fi
 }
 
-cmd=$1
+cmd="$1"
 shift
 
 if [[ "$cmd" == 'mount' ]]; then
-  mount_ramdisk
+  mount_ramdisk "$@"
 elif [[ "$cmd" == 'umount' || "$cmd" == 'unmount' ]]; then
   unmount_ramdisk
 else

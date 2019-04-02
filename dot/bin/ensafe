@@ -51,11 +51,11 @@ default_mount_point="${root_dir}/mnt"
 
 if [ "$cmd" == 'open' ]; then
     echo "opening volume ${volume} ..."
-    mkdir "${mount_point}"
+    mkdir -p "${mount_point}"
     encfs "${volume_path}" "${mount_point}"
     if [[ "${default_volumes}" =~ :${volume}: ]]; then
         if ! [ -L "${default_mount_point}" ] || \
-                ! stat -L "${default_mount_point}" ; then
+                ! stat -L "${default_mount_point}" > /dev/null; then
             ln -snf "${mount_point}" "${default_mount_point}"
 	fi
     fi

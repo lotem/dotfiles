@@ -1,3 +1,5 @@
+(prelude-require-package 'ripgrep)
+
 (prelude-require-package 'github-theme)
 (prelude-require-package 'snazzy-theme)
 ;; last t is for NO-ENABLE

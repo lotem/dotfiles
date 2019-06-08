@@ -10,7 +10,11 @@ setup_emacs() {
       git_clone_or_pull 'https://github.com/purcell/emacs.d.git' "$HOME/.emacs.d" --depth 1
     fi
   fi
-  brew services start emacs
+  if [[ "$OSTYPE" =~ darwin ]]; then
+    brew services start emacs
+  else
+    systemctl --user enable --now emacs
+  fi
 }
 
 setup_vim() {

@@ -65,12 +65,10 @@ install_rust() {
   fi
   if ! command -v cargo &>/dev/null; then
     if ! command -v rustup &>/dev/null; then
-      curl https://sh.rustup.rs -sSf | sh -s -- -y --default-toolchain nightly
+      curl https://sh.rustup.rs -sSf | sh -s -- -y --default-toolchain stable
     fi
-    # in case not successfully installed
-    rustup toolchain install nightly
-    rustup default nightly
-    rustup component add rust-src --toolchain nightly
+    rustup toolchain install stable nightly
+    rustup component add rust-src --toolchain stable
   fi
   rcup -v -d dot cargo
 }

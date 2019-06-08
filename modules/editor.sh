@@ -10,6 +10,7 @@ setup_emacs() {
       git_clone_or_pull 'https://github.com/purcell/emacs.d.git' "$HOME/.emacs.d" --depth 1
     fi
   fi
+  brew services start emacs
 }
 
 setup_vim() {

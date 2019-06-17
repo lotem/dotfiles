@@ -11,9 +11,9 @@ setup_emacs() {
     fi
   fi
   if [[ "$OSTYPE" =~ darwin ]]; then
-    brew services start emacs
+    fancy_echo "TODO: brew services start emacs"
   else
-    systemctl --user enable --now emacs
+    fancy_echo "TODO: systemctl --user enable --now emacs"
   fi
 }
 

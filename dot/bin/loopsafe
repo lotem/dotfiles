@@ -3,7 +3,15 @@
 set -e
 
 if [ -z "${root_dir}" ]; then
-  root_dir=$(cd "$(dirname $0)/.."; pwd)
+  root_dir="$HOME"
+fi
+
+if [ -z "${fs}" ]; then
+  fs="${root_dir}/fs"
+fi
+
+if [ -z "${mnt}" ]; then
+  mnt="${root_dir}/mnt"
 fi
 
 help() {
@@ -23,7 +31,7 @@ create_disk_image() {
     exit 1
   fi
 
-  local file="${root_dir}/${volume}.img"
+  local file="${fs}/${volume}.img"
   if [ -e "$file" ]; then
     echo "file already exists: $file"
     exit 1
@@ -35,15 +43,14 @@ create_disk_image() {
     mkfs.ext4 -L "$volume" "$file"
   else
     cryptsetup -v luksFormat "$file"
-    cryptsetup luksOpen "$file" "$volume"
-    mkfs.ext4 -L "$volume" "/dev/mapper/${volume}"
+    sudo cryptsetup luksOpen "$file" "$volume"
+    sudo mkfs.ext4 -L "$volume" "/dev/mapper/${volume}"
     echo 'filesystem created.'
     sleep 1
-    cryptsetup luksClose "$volume"
+    sudo cryptsetup luksClose "$volume"
   fi
   echo 'sparse disk image created.'
   ls -lahts "$file"
-
   #df -hm
 }
 
@@ -54,21 +61,21 @@ open_disk_image() {
     exit 1
   fi
 
-  local file="${root_dir}/${volume}.img"
+  local file="${fs}/${volume}.img"
   if ! [ -f "$file" ]; then
     echo "disk image does not exist: $file"
     exit 1
   fi
 
-  local mount_point="${root_dir}/${volume}.mnt"
+  local mount_point="${mnt}/${volume}"
   mkdir -p "${mount_point}"
 
   if echo LUKS | cmp --bytes=4 --quiet "$file" ; then
-    cryptsetup luksOpen "$file" "$volume"
+    sudo cryptsetup luksOpen --allow-discards "${file}" "${volume}"
     file="/dev/mapper/${volume}"
   fi
 
-  mount -o loop "${file}" "${mount_point}"
+  sudo mount -o discard "${file}" "${mount_point}"
 }
 
 close_disk_image() {
@@ -78,13 +85,14 @@ close_disk_image() {
     exit 1
   fi
 
-  local file="${root_dir}/${volume}.img"
-  local mount_point="${root_dir}/${volume}.mnt"
-  umount "${mount_point}" && rmdir "${mount_point}"
+  local file="${fs}/${volume}.img"
+  local mount_point="${mnt}/${volume}"
+
+  sudo umount "${mount_point}" && rmdir "${mount_point}"
 
   if echo LUKS | cmp --bytes=4 --quiet "$file" ; then
     sleep 1
-    cryptsetup luksClose "$volume"
+    sudo cryptsetup luksClose "$volume"
   fi
 }
 

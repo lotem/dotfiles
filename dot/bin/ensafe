@@ -1,6 +1,6 @@
 #!/bin/bash
 
-default_volumes=':safe:stash:'
+default_volumes=':safe:'
 
 set -e
 
@@ -46,18 +46,19 @@ else
     echo >&2 "volume not found: ${vol}"
     exit 1
 fi
-mount_point="${root_dir}/${volume}.mnt"
-default_mount_point="${root_dir}/mnt"
+mnt_dir="${root_dir}/mnt"
+mkdir -p "${mnt_dir}"
+mount_point="${mnt_dir}/${volume}"
+default_access="${root_dir}/my"
 
 if [ "$cmd" == 'open' ]; then
     echo "opening volume ${volume} ..."
     mkdir -p "${mount_point}"
     encfs "${volume_path}" "${mount_point}"
     if [[ "${default_volumes}" =~ :${volume}: ]]; then
-        if ! [ -L "${default_mount_point}" ] || \
-                ! stat -L "${default_mount_point}" > /dev/null; then
-            ln -snf "${mount_point}" "${default_mount_point}"
-	fi
+        if ! [ -d "${default_access}" ]; then
+            ln -snf "${mount_point}" "${default_access}"
+        fi
     fi
 elif [ "$cmd" == 'close' ]; then
     echo "closing volume ${volume} ..."
@@ -68,10 +69,10 @@ elif [ "$cmd" == 'close' ]; then
     fi
     rmdir "${mount_point}"
     if [[ "${default_volumes}" =~ :${volume}: ]]; then
-        if [ -L "${default_mount_point}" ] && \
-               [[ "${mount_point}" == "$(readlink -n "${default_mount_point}")" ]]; then
-            rm "${default_mount_point}"
-	fi
+        if [ -L "${default_access}" ] && \
+                [[ "${mount_point}" == "$(readlink -n "${default_access}")" ]]; then
+            rm "${default_access}"
+        fi
     fi
 else
     help

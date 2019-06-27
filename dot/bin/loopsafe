@@ -31,12 +31,19 @@ create_disk_image() {
     exit 1
   fi
 
-  local file="${fs}/${volume}.img"
+  local file="$volume"
+  if [[ "$file" =~ \.img$ ]]; then
+    volume="${file##*/}"
+    volume="${volume%.img}"
+  else
+    file="${fs}/${volume}.img"
+  fi
   if [ -e "$file" ]; then
     echo "file already exists: $file"
     exit 1
   fi
 
+  echo "creating volume: $volume"
   dd of="$file" bs=1k seek=$(($size * 1024 * 1024)) count=0
 
   if [ "$encrypt" == 'no' ]; then
@@ -61,7 +68,13 @@ open_disk_image() {
     exit 1
   fi
 
-  local file="${fs}/${volume}.img"
+  local file="$volume"
+  if [[ "$file" =~ \.img$ ]]; then
+    volume="${file##*/}"
+    volume="${volume%.img}"
+  else
+    file="${fs}/${volume}.img"
+  fi
   if ! [ -f "$file" ]; then
     echo "disk image does not exist: $file"
     exit 1
@@ -85,7 +98,13 @@ close_disk_image() {
     exit 1
   fi
 
-  local file="${fs}/${volume}.img"
+  local file="$volume"
+  if [[ "$file" =~ \.img$ ]]; then
+    volume="${file##*/}"
+    volume="${volume%.img}"
+  else
+    file="${fs}/${volume}.img"
+  fi
   local mount_point="${mnt}/${volume}"
 
   sudo umount "${mount_point}" && rmdir "${mount_point}"

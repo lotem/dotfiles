@@ -1,6 +1,14 @@
 #!/bin/bash
 
 install_rcm() {
+  if [[ "$OSTYPE" =~ darwin ]]; then
+    brew install thoughtbot/formulae/rcm
+  else
+    install_rcm_from_source
+  fi
+}
+
+install_rcm_from_source() {
   pushd /tmp
 
   curl -LO https://thoughtbot.github.io/rcm/dist/rcm-1.3.1.tar.gz && \

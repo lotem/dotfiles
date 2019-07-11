@@ -91,7 +91,7 @@ run_commands() {
 
 setup_dotfiles() {
   if ! command -v rcup >/dev/null; then
-    fancy_echo 'rcm is required. Installing from source ...'
+    fancy_echo 'rcm is required. Installing ...'
     import_module 'rcm'
     install_rcm
   fi

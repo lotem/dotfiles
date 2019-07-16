@@ -58,11 +58,11 @@ create_disk_image() {
   dd of="$file" bs=1k seek=$(($size * 1024 * 1024)) count=0
 
   if [ "$encrypt" == 'no' ]; then
-    mkfs.ext4 -L "$volume" "$file"
+    "mkfs.${fstype:-ext4}" -L "$volume" "$file"
   else
     cryptsetup -v luksFormat "$file"
     sudo cryptsetup luksOpen "$file" "$volume"
-    sudo mkfs.ext4 -L "$volume" "/dev/mapper/${volume}"
+    sudo "mkfs.${fstype:-ext4}" -L "$volume" "/dev/mapper/${volume}"
     echo 'filesystem created.'
     sleep 1
     sudo cryptsetup luksClose "$volume"

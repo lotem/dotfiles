@@ -32,7 +32,7 @@ install_nodejs() {
     if [[ "$OSTYPE" =~ darwin ]]; then
       brew_install node
     elif [[ "$OSTYPE" =~ linux-gnu ]] && command -v apt-get &>/dev/null; then
-      curl -sL https://deb.nodesource.com/setup_9.x | sudo -E bash -
+      curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
       sudo apt-get install -y nodejs
     fi
   fi

@@ -110,6 +110,7 @@ fi
 volsync_config_file=.volsync-config
 
 # Predefined flags:
+volsync_cplink="-L"
 volsync_dirlink="-kK"
 volsync_fat="--no-p --no-g --chmod=F-x --modify-window=1"
 volsync_unix="-lHopg"
@@ -117,8 +118,7 @@ volsync_onefs="-x"
 # Override the following variables in .volsync-config as necessary.
 volsync_command="rsync"
 volsync_flags="-FOrtv"
-# Set value to empty in .volsync-config to disable the feature.
-volsync_backup_dir="$target_volume_path/backup/`date +%F`"
+volsync_backup_dir=
 volsync_excludes_file=~/.excludes
 volsync_filter_file=$source_volume_path/.volsync-filter
 
@@ -128,6 +128,9 @@ if [[ ! "$configuration" =~ :nodel ]]; then
 fi
 if [[ "$configuration" =~ :dirlink ]]; then
   volsync_flags="$volsync_flags $volsync_dirlink"
+fi
+if [[ "$configuration" =~ :cplink ]]; then
+  volsync_flags="$volsync_flags $volsync_cplink"
 fi
 if [[ "$configuration" =~ :fat ]]; then
   volsync_flags="$volsync_flags $volsync_fat"
@@ -140,6 +143,8 @@ if [[ "$configuration" =~ :onefs ]]; then
 fi
 if [[ "$configuration" =~ :nobackup ]]; then
   volsync_backup_dir=
+elif [[ "$configuration" =~ :backup ]]; then
+  volsync_backup_dir="$target_volume_path/backup/`date +%F`"
 elif [[ "$configuration" =~ :tmp ]]; then
   volsync_backup_dir="/tmp/backup/`date +%F`"
 elif [[ "$configuration" =~ :trash ]]; then
@@ -176,6 +181,9 @@ function do_sync {
   echo "all up to date."
 }
 
-do_sync 2>&1 | tee /tmp/volsync.log
+logfile=/dev/null
+if [[ "$configuration" =~ :log ]]; then
+  logfile=/tmp/volsync.log
+fi
 
-# vim:set ts=2 sw=2 sts=2 sta et:
+do_sync 2>&1 | tee "${logfile}"

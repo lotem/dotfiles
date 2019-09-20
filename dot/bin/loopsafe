@@ -57,7 +57,7 @@ create_disk_image() {
   echo "creating volume: $volume"
   dd of="$file" bs=1k seek=$(($size * 1024 * 1024)) count=0
 
-  if [ "$encrypt" == 'no' ]; then
+  if [ "$encrypt" = 'no' ]; then
     "mkfs.${fstype:-ext4}" -L "$volume" "$file"
   else
     cryptsetup -v luksFormat "$file"
@@ -134,11 +134,11 @@ if [ -z "$1" ]; then
 fi
 cmd="$1"
 shift
-if [ "$cmd" == 'create' ]; then
+if [ "$cmd" = 'create' ]; then
   create_disk_image $@
-elif [ "$cmd" == 'open' ]; then
+elif [ "$cmd" = 'open' ]; then
   open_disk_image $@
-elif [ "$cmd" == 'close' ]; then
+elif [ "$cmd" = 'close' ]; then
   close_disk_image $@
 else
   help

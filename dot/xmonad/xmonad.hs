@@ -2,5 +2,6 @@ import XMonad
 import XMonad.Config.Desktop
 
 main = xmonad desktopConfig
-     { modMask = mod4Mask
+     { terminal = "gnome-terminal"
+     , modMask = mod4Mask
      }

@@ -9,6 +9,9 @@ DEFAULT_USER=$USERNAME
 export VISUAL='emacsclient'
 export ALTERNATE_EDITOR='emacs -Q -nw'
 
+# Pager
+export BAT_THEME='ansi-light'
+
 # }
 
 # Locale {

@@ -27,7 +27,7 @@
                     :family "Iosevka"
                     :slant 'normal
                     :weight 'light
-                    :height 240)
+                    :height 200)
 
 (require 'server)
 (unless (server-running-p) (server-start))

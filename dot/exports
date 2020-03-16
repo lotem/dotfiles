@@ -78,10 +78,10 @@ export RIME="$RIME_USER"
 
 # Aliases {
 
-if command -v hub >/dev/null; then
-  # Wrap git automatically by adding the following to ~/.zshrc:
-  eval "$(hub alias -s)"
-fi
+# if command -v hub >/dev/null; then
+#   # Wrap git automatically by adding the following to ~/.zshrc:
+#   eval "$(hub alias -s)"
+# fi
 
 # }
 

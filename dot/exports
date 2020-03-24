@@ -115,8 +115,6 @@ fi
 
 # }
 
-if [[ `hostname` =~ ${USERNAME}.*\\.corp\\.google\\.com ]]; then
+if [[ `hostname` =~ \\.corp\\.google\\.com ]]; then
   source $HOME/.exports-google
 fi
-
-# vim: set syntax=sh et sw=2 sts=2:

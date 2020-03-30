@@ -10,7 +10,7 @@ export VISUAL='emacsclient'
 export ALTERNATE_EDITOR='emacs -Q -nw'
 
 # Pager
-export BAT_THEME='ansi-light'
+#export BAT_THEME='ansi-light'
 
 # }
 

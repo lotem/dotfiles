@@ -67,7 +67,6 @@ install_rust() {
     if ! command -v rustup &>/dev/null; then
       curl https://sh.rustup.rs -sSf | sh -s -- -y --default-toolchain stable
     fi
-    rustup toolchain install stable nightly
     rustup component add rust-src --toolchain stable
   fi
   rcup -v -d dot cargo

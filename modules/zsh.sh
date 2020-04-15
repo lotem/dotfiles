@@ -6,7 +6,9 @@ append_to_zshrc() {
   local text="$1" zshrc
   local skip_new_line="${2:-0}"
 
-  if [ -w "$HOME/.zshrc.local" ]; then
+  if [ -n "$3" ]; then
+    zshrc="$3"
+  elif [ -w "$HOME/.zshrc.local" ]; then
     zshrc="$HOME/.zshrc.local"
   else
     zshrc="$HOME/.zshrc"
@@ -70,7 +72,7 @@ setup_zsh() {
   append_to_zshrc 'export PATH="$HOME/.bin:$PATH"'
 
   if [ -f "$HOME/.zshrc.local" ]; then
-    echo 'source "$HOME/.zshrc.local"' >> "$HOME/.zshrc"
+    append_to_zshrc 'source "$HOME/.zshrc.local"' 0 "$HOME/.zshrc"
   fi
 
   case "$SHELL" in

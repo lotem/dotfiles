@@ -38,6 +38,13 @@ elif [ "$HOMEBREW_MIRROR" = 'tuna' ]; then
     export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles
 fi
 
+export HOMEBREW_NO_ANALYTICS=1
+
+if [[ -d "$HOME/homebrew" ]]; then
+    export PATH=$HOME/homebrew/bin:$PATH
+    export LD_LIBRARY_PATH=$HOME/homebrew/lib:$LD_LIBRARY_PATH
+fi
+
 # Rust
 RUST_MIRROR='ustc'
 

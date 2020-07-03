@@ -42,3 +42,5 @@
 	process = git-lfs filter-process
 [hub]
 	protocol = https
+[pull]
+	ff = only

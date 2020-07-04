@@ -6,6 +6,9 @@
 
 (prelude-require-package 'ripgrep)
 
+(prelude-require-package 'monokai-theme)
+(load-theme 'monokai t)
+
 (prelude-require-package 'github-theme)
 (prelude-require-package 'snazzy-theme)
 ;; last t is for NO-ENABLE

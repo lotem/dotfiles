@@ -33,10 +33,10 @@
 
 ;; set the default font
 (set-face-attribute 'default nil
-                    :family "Iosevka"
+                    :family "Iosevka Slab"
                     :slant 'normal
                     :weight 'light
-                    :height 200)
+                    :height 180)
 
 (require 'server)
 (unless (server-running-p) (server-start))

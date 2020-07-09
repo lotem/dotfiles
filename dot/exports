@@ -9,13 +9,6 @@ DEFAULT_USER=$USERNAME
 export VISUAL='emacsclient'
 export ALTERNATE_EDITOR='emacs -Q -nw'
 
-# Pager
-if command -v bat > /dev/null; then
-    export PAGER='bat'
-fi
-# Light theme
-# export BAT_THEME='ansi-light'
-
 # }
 
 # Locale {
@@ -48,6 +41,13 @@ if [[ -d "$HOME/homebrew" ]]; then
     export PATH=$HOME/homebrew/bin:$PATH
     export LD_LIBRARY_PATH=$HOME/homebrew/lib:$LD_LIBRARY_PATH
 fi
+
+# Pager
+if command -v bat > /dev/null; then
+    export PAGER='bat'
+fi
+# Light theme
+# export BAT_THEME='ansi-light'
 
 # Rust
 RUST_MIRROR='ustc'

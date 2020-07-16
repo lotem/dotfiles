@@ -46,6 +46,7 @@ fi
 if command -v bat > /dev/null; then
     export PAGER='bat'
 fi
+export BAT_STYLE='plain'
 # Light theme
 # export BAT_THEME='ansi-light'
 

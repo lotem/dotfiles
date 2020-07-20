@@ -38,9 +38,9 @@ install_nodejs() {
   fi
 
   # cnpm
-  if ! command -v cnpm &>/dev/null; then
-    npm_install_global cnpm --registry=http://registry.npm.taobao.org
-  fi
+  # if ! command -v cnpm &>/dev/null; then
+  #   npm_install_global cnpm --registry=http://registry.npm.taobao.org
+  # fi
 }
 
 npm_install_global() {

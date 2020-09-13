@@ -36,7 +36,7 @@
                     :family "Iosevka Slab"
                     :slant 'normal
                     :weight 'light
-                    :height 180)
+                    :height 120)
 
 (require 'server)
 (unless (server-running-p) (server-start))

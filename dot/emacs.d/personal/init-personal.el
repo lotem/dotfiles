@@ -6,30 +6,31 @@
 
 (prelude-require-package 'ripgrep)
 
-(prelude-require-package 'monokai-theme)
-(load-theme 'monokai t)
+;; (prelude-require-package 'github-theme)
+;; (prelude-require-package 'leuven-theme)
+(prelude-require-package 'minimal-theme)
+;; (prelude-require-package 'monokai-theme)
+;; (prelude-require-package 'snazzy-theme)
 
-(prelude-require-package 'github-theme)
-(prelude-require-package 'snazzy-theme)
 ;; last t is for NO-ENABLE
-;; (load-theme 'github t t)
-;; (load-theme 'snazzy t t)
+(load-theme 'minimal t t)
+(load-theme 'minimal-light t t)
 
-;; (defun mb/pick-color-theme (frame)
-;;   (select-frame frame)
-;;   (if (window-system frame)
-;;       (progn
-;;         (disable-theme 'snazzy) ; in case it was active
-;;         (enable-theme 'github))
-;;     (progn
-;;       (disable-theme 'github) ; in case it was active
-;;       (enable-theme 'snazzy))))
-;; (add-hook 'after-make-frame-functions 'mb/pick-color-theme)
+(defun mb/pick-color-theme (frame)
+  (select-frame frame)
+  (if (window-system frame)
+      (progn
+        (disable-theme 'minimal) ; in case it was active
+        (enable-theme 'minimal-light))
+    (progn
+      (disable-theme 'minimal-light) ; in case it was active
+      (enable-theme 'minimal))))
+(add-hook 'after-make-frame-functions 'mb/pick-color-theme)
 
 ;; For when started with emacs or emacs -nw rather than emacs --daemon
-;; (if window-system
-;;     (enable-theme 'github)
-;;   (enable-theme 'snazzy))
+(if window-system
+    (enable-theme 'minimal-light)
+  (enable-theme 'minimal))
 
 ;; set the default font
 (set-face-attribute 'default nil

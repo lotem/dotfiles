@@ -4,6 +4,7 @@
 #
 # Volume search path:
 #   /Volumes/${volume_name}
+#   /mnt/${volume_name}
 #   /media/${volume_name}
 #   /media/$USER/${volume_name}
 #   /run/media/$USER/${volume_name}
@@ -45,7 +46,10 @@ function find_volume_path {
       return
     fi
   elif [[ "$OSTYPE" =~ 'linux-gnu' ]]; then
-    if [[ -d "/media/$1" ]]; then
+    if [[ -d "/mnt/$1" ]]; then
+      echo "/mnt/$1"
+      return
+    elif [[ -d "/media/$1" ]]; then
       echo "/media/$1"
       return
     elif [[ -d "/media/$USER/$1" ]]; then

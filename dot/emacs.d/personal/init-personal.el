@@ -40,5 +40,8 @@
                     :weight 'light
                     :height 120)
 
+;; do not hightlight long lines
+(setq whitespace-style '(face tabs empty trailing))
+
 (require 'server)
 (unless (server-running-p) (server-start))

@@ -6,31 +6,32 @@
 
 (prelude-require-package 'ripgrep)
 
+(prelude-require-package 'almost-mono-themes)
 ;; (prelude-require-package 'github-theme)
 ;; (prelude-require-package 'leuven-theme)
-(prelude-require-package 'minimal-theme)
+;; (prelude-require-package 'minimal-theme)
 ;; (prelude-require-package 'monokai-theme)
 ;; (prelude-require-package 'snazzy-theme)
 
 ;; last t is for NO-ENABLE
-(load-theme 'minimal t t)
-(load-theme 'minimal-light t t)
+(load-theme 'almost-mono-black t t)
+(load-theme 'almost-mono-white t t)
 
 (defun mb/pick-color-theme (frame)
   (select-frame frame)
   (if (window-system frame)
       (progn
-        (disable-theme 'minimal) ; in case it was active
-        (enable-theme 'minimal-light))
+        (disable-theme 'almost-mono-black) ; in case it was active
+        (enable-theme 'almost-mono-white))
     (progn
-      (disable-theme 'minimal-light) ; in case it was active
-      (enable-theme 'minimal))))
+      (disable-theme 'almost-mono-white) ; in case it was active
+      (enable-theme 'almost-mono-black))))
 (add-hook 'after-make-frame-functions 'mb/pick-color-theme)
 
 ;; For when started with emacs or emacs -nw rather than emacs --daemon
 (if window-system
-    (enable-theme 'minimal-light)
-  (enable-theme 'minimal))
+    (enable-theme 'almost-mono-white)
+  (enable-theme 'almost-mono-black))
 
 ;; set the default font
 (set-face-attribute 'default nil

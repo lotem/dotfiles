@@ -127,6 +127,8 @@ fi
 
 # }
 
+source $HOME/.exports-shorthand
+
 if [[ `hostname` =~ \\.corp\\.google\\.com ]]; then
   source $HOME/.exports-google
 fi

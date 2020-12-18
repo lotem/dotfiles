@@ -44,3 +44,7 @@
 	protocol = https
 [pull]
 	ff = only
+[url "https://github.com/"]
+	insteadOf = github:
+[url "https://gitee.com/"]
+	insteadOf = gitee:

@@ -42,10 +42,6 @@ if [[ -d "$HOME/homebrew" ]]; then
     export LD_LIBRARY_PATH=$HOME/homebrew/lib:$LD_LIBRARY_PATH
 fi
 
-# Pager
-if command -v bat > /dev/null; then
-    export PAGER='bat'
-fi
 export BAT_STYLE='plain'
 # Light theme
 # export BAT_THEME='ansi-light'

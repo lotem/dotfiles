@@ -26,4 +26,5 @@
 ;; (prelude-require-package 'monokai-theme)
 ;; (prelude-require-package 'snazzy-theme)
 
-(pick-color-theme 'almost-mono-white 'almost-mono-black)
+;; (pick-color-theme 'almost-mono-white 'almost-mono-black)
+(load-theme 'almost-mono-white t)

@@ -18,9 +18,8 @@ export LANG=en_US.UTF-8
 
 # Path {
 
-# CMake search path
-if [ -d "$HOME/.homebrew" ]; then
-  export CMAKE_PREFIX_PATH=$HOME:$HOME/.homebrew
+if [ -d "$HOME/.bin" ]; then
+    export PATH="$HOME/.bin:$PATH"
 fi
 
 # Homebrew
@@ -40,6 +39,7 @@ export HOMEBREW_NO_ANALYTICS=1
 if [[ -d "$HOME/homebrew" ]]; then
     export PATH=$HOME/homebrew/bin:$PATH
     export LD_LIBRARY_PATH=$HOME/homebrew/lib:$LD_LIBRARY_PATH
+    export CMAKE_PREFIX_PATH=$HOME/homebrew:$CMAKE_PREFIX_PATH
 fi
 
 export BAT_STYLE='plain'
@@ -81,15 +81,6 @@ elif [[ "$OSTYPE" =~ 'darwin' ]]; then
   export RIME_USER="$HOME/Library/Rime"
 fi
 export RIME="$RIME_USER"
-
-# }
-
-# Aliases {
-
-# if command -v hub >/dev/null; then
-#   # Wrap git automatically by adding the following to ~/.zshrc:
-#   eval "$(hub alias -s)"
-# fi
 
 # }
 

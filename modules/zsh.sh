@@ -60,16 +60,9 @@ setup_zsh() {
     install_prezto
   fi
 
-  if [ ! -d "$HOME/.bin/" ]; then
-    mkdir "$HOME/.bin"
-  fi
-
   if [ ! -f "$HOME/.zshrc.local" ]; then
     touch "$HOME/.zshrc.local"
   fi
-
-  # shellcheck disable=SC2016
-  append_to_zshrc 'export PATH="$HOME/.bin:$PATH"'
 
   if [ -f "$HOME/.zshrc.local" ]; then
     append_to_zshrc 'source "$HOME/.zshrc.local"' 0 "$HOME/.zshrc"

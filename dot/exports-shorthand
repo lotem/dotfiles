@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if [[ -z "$ZPREZTODIR" ]]; then
+    source "$HOME/.exports-cli"
+    source "$HOME/.exports-git"
+fi
+
 # git-annex
 alias gA='git annex'
 alias gAa='git annex add'

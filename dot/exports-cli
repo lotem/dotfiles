@@ -1,0 +1,39 @@
+#!/bin/bash
+
+[[ -z "$ZPREZTODIR" ]] || exit
+
+# shell prompt {
+if command -v starship > /dev/null; then
+    eval "$(starship init zsh)"
+fi
+# }
+
+# env {
+if [[ "$OSTYPE" =~ 'linux-gnu' ]]; then
+    export BROWSER='xdg-open'
+elif [[ "$OSTYPE" =~ 'darwin' ]]; then
+    export BROWSER='open'
+fi
+export EDITOR='nano'
+export VISUAL='emacsclient'
+export ALTERNATE_EDITOR='emacs -Q -nw'
+export PAGER='less'
+# }
+
+# shorthand {
+alias b=${BROWSER}
+alias e=${VISUAL:-$EDITOR}
+alias p=${PAGER}
+alias o=${BROWSER}
+
+if [[ "$OSTYPE" =~ 'linux-gnu' ]]; then
+    alias ls='ls --color=auto'
+elif [[ "$OSTYPE" =~ 'darwin' ]]; then
+    alias ls='ls -G'
+fi
+alias l='ls -1A'
+alias ll='ls -lh'
+alias lr='ll -R'
+alias la='ll -A'
+alias sl='ls'
+# }

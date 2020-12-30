@@ -90,16 +90,20 @@ run_commands() {
 }
 
 setup_dotfiles() {
-  if ! command -v rcup >/dev/null; then
-    fancy_echo 'rcm is required. Installing ...'
-    import_module 'rcm'
-    install_rcm
+    if [[ "$DOTFILES_INSTALLER" == 'rcm' ]]; then
+      if ! command -v rcup >/dev/null; then
+          fancy_echo 'rcm is required. Installing ...'
+          import_module 'rcm'
+          install_rcm
+      fi
+      pushd "$(dirname $0)"
+      setup_private_config
+      rcup -v -d dot -d private
+      popd
+  else
+      import_module 'dotfiles'
+      install_dotfiles
   fi
-
-  pushd "$(dirname $0)"
-  setup_private_config
-  rcup -v -d dot -d private
-  popd
 
   if [ -f "$HOME/.exports" ]; then
     append_to_zshrc 'source "$HOME/.exports"'

@@ -10,7 +10,7 @@
 (set-face-attribute 'default nil
                     :family "Iosevka Slab"
                     :slant 'normal
-                    :weight 'light
+                    :weight 'normal
                     :height 120)
 
 ;; do not hightlight long lines

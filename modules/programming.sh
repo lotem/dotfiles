@@ -69,7 +69,7 @@ install_rust() {
     fi
     rustup component add rust-src --toolchain stable
   fi
-  rcup -v -d dot cargo
+  #rcup -v -d dot cargo
 }
 
 cargo_install() {

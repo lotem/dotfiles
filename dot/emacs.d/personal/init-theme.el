@@ -27,4 +27,4 @@
 ;; (prelude-require-package 'snazzy-theme)
 
 ;; (pick-color-theme 'almost-mono-white 'almost-mono-black)
-(load-theme 'almost-mono-white t)
+;; (load-theme 'almost-mono-white t)

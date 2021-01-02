@@ -103,6 +103,7 @@ setup_dotfiles() {
   else
       import_module 'dotfiles'
       install_dotfiles
+      install_dotfiles private
   fi
 
   if [ -f "$HOME/.exports" ]; then
@@ -111,7 +112,7 @@ setup_dotfiles() {
 }
 
 setup_private_config() {
-  if [ -d private ]; then
+  if [[ -n "$(ls -A private)" ]]; then
     return
   fi
   if [ -f private.gpg ]; then

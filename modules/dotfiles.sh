@@ -3,6 +3,10 @@
 install_dotfiles_recur() {
     local dir="$1"
     local prefix="$2"
+    if [[ -z "$(ls "$dir")" ]]; then
+        fancy_echo 'directory is empty: %s' "$dir"
+        return
+    fi
     local dotfile
     local target
     for dotfile in "$dir"/*

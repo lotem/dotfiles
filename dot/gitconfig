@@ -48,3 +48,9 @@
 	insteadOf = github:
 [url "https://gitee.com/"]
 	insteadOf = gitee:
+[url "gcrypt::https://github.com/"]
+	insteadOf = github-crypt:
+[url "gcrypt::https://gitee.com/"]
+	insteadOf = gitee-crypt:
+[url "/mnt/master/"]
+	insteadOf = my:

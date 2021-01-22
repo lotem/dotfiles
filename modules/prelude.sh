@@ -104,6 +104,7 @@ setup_dotfiles() {
       import_module 'dotfiles'
       install_dotfiles
       install_dotfiles private
+      install_dotfiles work
   fi
 
   if [ -f "$HOME/.exports" ]; then

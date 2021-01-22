@@ -1,5 +1,6 @@
 [include]
 	path = ~/.gitconfig.local
+	path = ~/.gitconfig.google
 [color]
 	ui = auto
 [color "branch"]

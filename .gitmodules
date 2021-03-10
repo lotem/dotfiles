@@ -4,5 +4,5 @@
 
 [submodule "work"]
 	path = work
-	url = sso://user/chengong/dotfiles
+	url = work:dotfiles
 	branch = main

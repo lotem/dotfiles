@@ -72,7 +72,7 @@ function find_volume_path {
 
 function find_volume {
   # remote host?
-  if [[ "$1" =~ ^[[:alnum:].]*::? ]]; then
+  if [[ "$1" =~ ^[-_[:alnum:].]*::? ]]; then
     echo "$1"
     return
   fi

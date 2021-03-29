@@ -44,7 +44,7 @@ fi
 
 export BAT_STYLE='plain'
 # Light theme
-export BAT_THEME='Monokai Extended Light'
+# export BAT_THEME='Monokai Extended Light'
 
 # Rust
 RUST_MIRROR='ustc'

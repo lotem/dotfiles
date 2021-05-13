@@ -42,10 +42,6 @@ if [[ -d "$HOME/homebrew" ]]; then
     export CMAKE_PREFIX_PATH=$HOME/homebrew:$CMAKE_PREFIX_PATH
 fi
 
-export BAT_STYLE='plain'
-# works for both dark and light themes
-export BAT_THEME='ansi'
-
 # Rust
 RUST_MIRROR='ustc'
 

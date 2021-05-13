@@ -43,8 +43,8 @@ if [[ -d "$HOME/homebrew" ]]; then
 fi
 
 export BAT_STYLE='plain'
-# Light theme
-# export BAT_THEME='Monokai Extended Light'
+# works for both dark and light themes
+export BAT_THEME='ansi'
 
 # Rust
 RUST_MIRROR='ustc'

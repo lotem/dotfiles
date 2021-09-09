@@ -51,6 +51,8 @@ export PATH=$PATH:$HOME/.cargo/bin
 if [ "$RUST_MIRROR" = 'ustc' ]; then
   export RUSTUP_DIST_SERVER=https://mirrors.ustc.edu.cn/rust-static
   export RUSTUP_UPDATE_ROOT=https://mirrors.ustc.edu.cn/rust-static/rustup
+  # https://github.com/ustclug/discussions/issues/294
+  export CARGO_HTTP_MULTIPLEXING=false
 fi
 
 # Golang

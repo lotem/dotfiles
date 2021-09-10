@@ -15,7 +15,7 @@ pacman_upgrade() {
 }
 
 pacman_install() {
-  sudo pacman -S --needed $@
+  sudo pacman -S --needed --noconfirm $@
 }
 
 install_aur_packages() {
@@ -30,7 +30,7 @@ aur_install() {
   if pacman -Qkq $@ &> /dev/null; then
     fancy_echo "Package '%s' is already installed. Skipping ..." $@
   else
-    yay -S --noedit "$@"
+    yay -S "$@"
   fi
 }
 

@@ -4,7 +4,11 @@
 
 setup_emacs() {
   if [ ! -d "$HOME/.emacs.d" ]; then
-    if [ "$MY_EMACS_CONFIG" = 'prelude' ]; then
+    if [ "$MY_EMACS_CONFIG" = 'centaur' ]; then
+      git_clone_or_pull 'https://github.com/seagle0128/.emacs.d.git' "$HOME/.emacs.d" --depth 1
+    elif [ "$MY_EMACS_CONFIG" = 'lotem/centaur-emacs' ]; then
+      git_clone_or_pull 'https://github.com/lotem/centaur-emacs' "$HOME/.emacs.d" --depth 1
+    elif [ "$MY_EMACS_CONFIG" = 'prelude' ]; then
       curl -L https://git.io/epre | sh
     elif [ "$MY_EMACS_CONFIG" = 'purcell' ]; then
       git_clone_or_pull 'https://github.com/purcell/emacs.d.git' "$HOME/.emacs.d" --depth 1

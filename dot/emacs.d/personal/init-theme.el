@@ -20,11 +20,5 @@
     (enable-theme terminal-theme)))
 
 (prelude-require-package 'almost-mono-themes)
-;; (prelude-require-package 'github-theme)
-;; (prelude-require-package 'leuven-theme)
-;; (prelude-require-package 'minimal-theme)
-;; (prelude-require-package 'monokai-theme)
-;; (prelude-require-package 'snazzy-theme)
-
 ;; (pick-color-theme 'almost-mono-white 'almost-mono-black)
 ;; (load-theme 'almost-mono-white t)

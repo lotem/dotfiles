@@ -19,6 +19,6 @@
       (enable-theme window-theme)
     (enable-theme terminal-theme)))
 
-(prelude-require-package 'almost-mono-themes)
-;; (pick-color-theme 'almost-mono-white 'almost-mono-black)
-;; (load-theme 'almost-mono-white t)
+(prelude-require-package 'doom-themes)
+(load-theme 'doom-monokai-classic t)
+;; (pick-color-theme 'doom-one-light 'doom-one)

@@ -26,10 +26,17 @@ fi
 HOMEBREW_MIRROR='ustc'
 
 if [ "$HOMEBREW_MIRROR" = 'ustc' ]; then
+    # https://mirrors.ustc.edu.cn/help/brew.git.html
+    export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.ustc.edu.cn/brew.git"
+    # https://mirrors.ustc.edu.cn/help/homebrew-core.git.html
+    export HOMEBREW_CORE_GIT_REMOTE="https://mirrors.ustc.edu.cn/homebrew-core.git"
     # https://mirrors.ustc.edu.cn/help/homebrew-bottles.html
     export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles
 
 elif [ "$HOMEBREW_MIRROR" = 'tuna' ]; then
+    # https://mirrors.tuna.tsinghua.edu.cn/help/homebrew/
+    export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git"
+    export HOMEBREW_CORE_GIT_REMOTE="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-core.git"
     # https://mirrors.tuna.tsinghua.edu.cn/help/homebrew-bottles/
     export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles
 fi

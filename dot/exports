@@ -6,8 +6,8 @@
 DEFAULT_USER=$USERNAME
 
 # Editor
-export VISUAL='emacsclient'
-export ALTERNATE_EDITOR='emacs -Q -nw'
+#export VISUAL='emacsclient'
+#export ALTERNATE_EDITOR='emacs -Q -nw'
 
 # }
 

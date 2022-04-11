@@ -97,28 +97,28 @@ setup_dotfiles() {
           install_rcm
       fi
       pushd "$(dirname $0)"
-      setup_private_config
-      rcup -v -d dot -d private
+      setup_personal_config
+      rcup -v -d dot -d personal
       popd
   else
       import_module 'dotfiles'
       install_dotfiles
-      install_dotfiles private
+      install_dotfiles personal
       install_dotfiles work
-  fi
+    fi
 
   if [ -f "$HOME/.exports" ]; then
     append_to_zshrc 'source "$HOME/.exports"'
   fi
 }
 
-setup_private_config() {
-  if [[ -n "$(ls -A private)" ]]; then
-    return
-  fi
-  if [ -f private.gpg ]; then
-    gpg --decrypt private.gpg | tar x
-  else
-    git submodule update --init private
-  fi
+setup_personal_config() {
+    if [[ -n "$(ls -A personal)" ]]; then
+        return
+    fi
+    if [ -f personal.gpg ]; then
+        gpg --decrypt personal.gpg | tar x
+    else
+        git submodule update --init personal
+    fi
 }

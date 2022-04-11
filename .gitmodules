@@ -1,6 +1,6 @@
-[submodule "private"]
-	path = private
-	url = my:dotfiles-private.git
+[submodule "personal"]
+	path = personal
+	url = my:dotfiles-personal.git
 
 [submodule "work"]
 	path = work

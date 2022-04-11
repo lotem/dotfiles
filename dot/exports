@@ -119,7 +119,10 @@ fi
 
 # }
 
-source $HOME/.exports-shorthand
+if [[ -z "$ZPREZTODIR" ]]; then
+    source "$HOME/.exports-cli"
+    source "$HOME/.exports-git"
+fi
 
 if [[ `hostname` =~ \\.corp\\.google\\.com ]]; then
   source $HOME/.exports-google

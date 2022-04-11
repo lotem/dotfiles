@@ -1,3 +1,0 @@
-let g:spf13_bundle_groups = ['general', 'writing', 'neocomplcache', 'programming', 'ruby', 'python', 'javascript', 'html', 'misc',]
-let g:signify_vcs_list = ['git', 'svn']
-let g:spf13_no_autochdir = 1

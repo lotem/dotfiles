@@ -1,7 +1,0 @@
-#!/bin/bash
-
-echo "configuration: $configuration"
-
-if [ -z "$configuration" ]; then
-  export volsync_flags="$volsync_flags $volsync_unix $volsync_dirlink"
-fi

@@ -2,9 +2,6 @@
 
 # Variables {
 
-# OMZ Powerline
-DEFAULT_USER=$USERNAME
-
 # Editor
 export VISUAL='emacsclient'
 export ALTERNATE_EDITOR='emacs -Q -nw'
@@ -59,21 +56,6 @@ if [ "$RUST_MIRROR" = 'ustc' ]; then
   export RUSTUP_UPDATE_ROOT=https://mirrors.ustc.edu.cn/rust-static/rustup
   # https://github.com/ustclug/discussions/issues/294
   export CARGO_HTTP_MULTIPLEXING=false
-fi
-
-# Golang
-export GOPATH=$HOME/go
-export PATH=$PATH:$GOPATH/bin
-
-# nvm
-if [ -f ~/.nvm/nvm.sh ]; then
-  source ~/.nvm/nvm.sh
-  nvm use node >/dev/null
-fi
-
-# CrossPack-AVR
-if [ -d /usr/local/CrossPack-AVR ]; then
-  export PATH=$PATH:/usr/local/CrossPack-AVR/bin
 fi
 
 # Rime

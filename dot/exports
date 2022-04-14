@@ -2,9 +2,14 @@
 
 # Variables {
 
-# Editor
+# Editor {
+export EDITOR='nano'
 export VISUAL='emacsclient'
 export ALTERNATE_EDITOR='emacs -Q -nw'
+# }
+
+# Pager {
+export PAGER='less -F'
 # }
 
 # Locale {

@@ -14,10 +14,6 @@ if [[ "$OSTYPE" =~ 'linux-gnu' ]]; then
 elif [[ "$OSTYPE" =~ 'darwin' ]]; then
     export BROWSER='open'
 fi
-export EDITOR='nano'
-export VISUAL='emacsclient'
-export ALTERNATE_EDITOR='emacs -Q -nw'
-export PAGER='less'
 # }
 
 # shorthand {

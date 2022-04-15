@@ -8,8 +8,6 @@ append_to_zshrc() {
 
   if [ -n "$3" ]; then
     zshrc="$3"
-  elif [ -w "$HOME/.zshrc.local" ]; then
-    zshrc="$HOME/.zshrc.local"
   else
     zshrc="$HOME/.zshrc"
   fi
@@ -28,9 +26,6 @@ replace_zshrc_variable() {
   local value=$2
 
   local zshrc="$HOME/.zshrc"
-  if [ -w "$HOME/.zshrc.local" ]; then
-    zshrc="$HOME/.zshrc.local"
-  fi
 
   local line="${variable}=\"${value}\""
   if ! grep -q "^${line}\$" "$zshrc" ; then
@@ -58,14 +53,6 @@ setup_zsh() {
     install_omz
   elif [ "$MY_ZSH_CONFIG" = 'zprezto' ]; then
     install_prezto
-  fi
-
-  if [ ! -f "$HOME/.zshrc.local" ]; then
-    touch "$HOME/.zshrc.local"
-  fi
-
-  if [ -f "$HOME/.zshrc.local" ]; then
-    append_to_zshrc 'source "$HOME/.zshrc.local"' 0 "$HOME/.zshrc"
   fi
 
   case "$SHELL" in

@@ -81,11 +81,6 @@ install_software_packages() {
 }
 
 main() {
-  # place for shell customization
-  if [ ! -f "$HOME/.zshrc.local" ]; then
-    touch "$HOME/.zshrc.local"
-  fi
-
   install_software_packages
 
   setup_zsh

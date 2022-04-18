@@ -110,6 +110,7 @@ if [[ -z "$ZPREZTODIR" ]]; then
     source "$HOME/.exports-git"
 fi
 
-if [[ `hostname` =~ \\.corp\\.google\\.com ]]; then
+if [[ -f $HOME/.exports-google &&
+    `hostname` =~ \\.corp\\.google\\.com\|\\.roam\\.internal ]]; then
   source $HOME/.exports-google
 fi

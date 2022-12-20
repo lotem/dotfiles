@@ -46,10 +46,10 @@
 [pull]
 	ff = only
 [url "https://github.com/"]
-	insteadOf = github:
+	insteadOf = gh:
 [url "https://gitee.com/"]
-	insteadOf = gitee:
+	insteadOf = gt:
 [url "gcrypt::https://github.com/"]
-	insteadOf = github-crypt:
+	insteadOf = gh-crypt:
 [url "gcrypt::https://gitee.com/"]
-	insteadOf = gitee-crypt:
+	insteadOf = gt-crypt:

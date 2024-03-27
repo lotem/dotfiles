@@ -1,2 +1,3 @@
 --style='plain'
---theme='ansi'
+#--theme='ansi'
+--theme='Coldark-Dark'
